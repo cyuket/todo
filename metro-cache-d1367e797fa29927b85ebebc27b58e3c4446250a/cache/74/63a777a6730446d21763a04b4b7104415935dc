@@ -1,0 +1,36 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    get withNativeAd() {
+      return _require(_dependencyMap[0]).default;
+    },
+
+    get AdSettings() {
+      return _require(_dependencyMap[1]).default;
+    },
+
+    get NativeAdsManager() {
+      return _require(_dependencyMap[2]).default;
+    },
+
+    get InterstitialAdManager() {
+      return _require(_dependencyMap[3]).default;
+    },
+
+    get BannerView() {
+      return _require(_dependencyMap[4]).default;
+    },
+
+    get MediaView() {
+      return _require(_dependencyMap[5]).default;
+    },
+
+    get AdIconView() {
+      return _require(_dependencyMap[6]).default;
+    },
+
+    get TriggerableView() {
+      return _require(_dependencyMap[7]).default;
+    }
+
+  };
+});

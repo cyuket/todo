@@ -1,0 +1,15 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _MaterialCommunityIcons = _require(_dependencyMap[0]);
+
+  var _MaterialCommunityIcons2 = babelHelpers.interopRequireDefault(_MaterialCommunityIcons);
+
+  var _createIconSet = _require(_dependencyMap[1]);
+
+  var _createIconSet2 = babelHelpers.interopRequireDefault(_createIconSet);
+
+  exports.default = (0, _createIconSet2.default)(_MaterialCommunityIcons2.default, 'material-community', _require(_dependencyMap[2]));
+});

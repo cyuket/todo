@@ -1,0 +1,80 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _AnimatedValue = _require(_dependencyMap[0]);
+
+  var _AnimatedValue2 = babelHelpers.interopRequireDefault(_AnimatedValue);
+
+  var _timing = _require(_dependencyMap[1]);
+
+  var _timing2 = babelHelpers.interopRequireDefault(_timing);
+
+  var _base = _require(_dependencyMap[2]);
+
+  var _AnimatedClock = _require(_dependencyMap[3]);
+
+  var _AnimatedClock2 = babelHelpers.interopRequireDefault(_AnimatedClock);
+
+  var _Easing = _require(_dependencyMap[4]);
+
+  var _Easing2 = babelHelpers.interopRequireDefault(_Easing);
+
+  var _Animation2 = _require(_dependencyMap[5]);
+
+  var _Animation3 = babelHelpers.interopRequireDefault(_Animation2);
+
+  var easeInOut = _Easing2.default.inOut(_Easing2.default.ease);
+
+  var TimingAnimation = function (_Animation) {
+    babelHelpers.inherits(TimingAnimation, _Animation);
+
+    function TimingAnimation(config) {
+      babelHelpers.classCallCheck(this, TimingAnimation);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (TimingAnimation.__proto__ || Object.getPrototypeOf(TimingAnimation)).call(this));
+
+      _this._toValue = config.toValue;
+      _this._easing = config.easing !== undefined ? config.easing : easeInOut;
+      _this._duration = config.duration !== undefined ? config.duration : 500;
+      return _this;
+    }
+
+    babelHelpers.createClass(TimingAnimation, [{
+      key: "start",
+      value: function start(value) {
+        this._clock = new _AnimatedClock2.default();
+        var state = {
+          finished: new _AnimatedValue2.default(0),
+          position: value,
+          time: new _AnimatedValue2.default(0),
+          frameTime: new _AnimatedValue2.default(0)
+        };
+        var config = {
+          duration: this._duration,
+          toValue: this._toValue,
+          easing: this._easing
+        };
+        return (0, _base.block)([(0, _base.cond)((0, _base.clockRunning)(this._clock), 0, [(0, _base.startClock)(this._clock)]), (0, _timing2.default)(this._clock, state, config), (0, _base.cond)(state.finished, (0, _base.stopClock)(this._clock))]);
+      }
+    }, {
+      key: "stop",
+      value: function stop() {}
+    }], [{
+      key: "getDefaultState",
+      value: function getDefaultState() {
+        return {
+          position: new _AnimatedValue2.default(0),
+          finished: new _AnimatedValue2.default(0),
+          time: new _AnimatedValue2.default(0),
+          frameTime: new _AnimatedValue2.default(0)
+        };
+      }
+    }]);
+    return TimingAnimation;
+  }(_Animation3.default);
+
+  exports.default = TimingAnimation;
+});

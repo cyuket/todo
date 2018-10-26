@@ -1,0 +1,55 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _propTypes = _require(_dependencyMap[0]);
+
+  var _propTypes2 = babelHelpers.interopRequireDefault(_propTypes);
+
+  var _react = _require(_dependencyMap[1]);
+
+  var _react2 = babelHelpers.interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[2]);
+
+  var _decorateMapComponent = _require(_dependencyMap[3]);
+
+  var _decorateMapComponent2 = babelHelpers.interopRequireDefault(_decorateMapComponent);
+
+  var viewPropTypes = _reactNative.ViewPropTypes || _reactNative.View.propTypes;
+  var propTypes = babelHelpers.extends({}, viewPropTypes, {
+    pathTemplate: _propTypes2.default.string.isRequired,
+    zIndex: _propTypes2.default.number,
+    tileSize: _propTypes2.default.number
+  });
+
+  var MapLocalTile = function (_React$Component) {
+    babelHelpers.inherits(MapLocalTile, _React$Component);
+
+    function MapLocalTile() {
+      babelHelpers.classCallCheck(this, MapLocalTile);
+      return babelHelpers.possibleConstructorReturn(this, (MapLocalTile.__proto__ || Object.getPrototypeOf(MapLocalTile)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(MapLocalTile, [{
+      key: "render",
+      value: function render() {
+        var AIRMapLocalTile = this.getAirComponent();
+        return _react2.default.createElement(AIRMapLocalTile, this.props);
+      }
+    }]);
+    return MapLocalTile;
+  }(_react2.default.Component);
+
+  MapLocalTile.propTypes = propTypes;
+  exports.default = (0, _decorateMapComponent2.default)(MapLocalTile, {
+    componentType: 'LocalTile',
+    providers: {
+      google: {
+        ios: _decorateMapComponent.SUPPORTED,
+        android: _decorateMapComponent.USES_DEFAULT_IMPLEMENTATION
+      }
+    }
+  });
+});

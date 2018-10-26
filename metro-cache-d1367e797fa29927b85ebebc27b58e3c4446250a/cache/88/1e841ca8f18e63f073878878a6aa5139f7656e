@@ -1,0 +1,81 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var NativeMethodsMixin = _require(_dependencyMap[1]);
+
+  var Platform = _require(_dependencyMap[2]);
+
+  var React = _require(_dependencyMap[3]);
+
+  var PropTypes = _require(_dependencyMap[4]);
+
+  var ViewPropTypes = _require(_dependencyMap[5]);
+
+  var createReactClass = _require(_dependencyMap[6]);
+
+  var requireNativeComponent = _require(_dependencyMap[7]);
+
+  {
+    var AndroidSwipeRefreshLayout = _require(_dependencyMap[8]).AndroidSwipeRefreshLayout;
+
+    var RefreshLayoutConsts = AndroidSwipeRefreshLayout ? AndroidSwipeRefreshLayout.Constants : {
+      SIZE: {}
+    };
+  }
+  var RefreshControl = createReactClass({
+    displayName: 'RefreshControl',
+    statics: {
+      SIZE: RefreshLayoutConsts.SIZE
+    },
+    mixins: [NativeMethodsMixin],
+    propTypes: babelHelpers.extends({}, ViewPropTypes, {
+      onRefresh: PropTypes.func,
+      refreshing: PropTypes.bool.isRequired,
+      tintColor: ColorPropType,
+      titleColor: ColorPropType,
+      title: PropTypes.string,
+      enabled: PropTypes.bool,
+      colors: PropTypes.arrayOf(ColorPropType),
+      progressBackgroundColor: ColorPropType,
+      size: PropTypes.oneOf([RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE]),
+      progressViewOffset: PropTypes.number
+    }),
+    _nativeRef: null,
+    _lastNativeRefreshing: false,
+    componentDidMount: function componentDidMount() {
+      this._lastNativeRefreshing = this.props.refreshing;
+    },
+    componentDidUpdate: function componentDidUpdate(prevProps) {
+      if (this.props.refreshing !== prevProps.refreshing) {
+        this._lastNativeRefreshing = this.props.refreshing;
+      } else if (this.props.refreshing !== this._lastNativeRefreshing) {
+        this._nativeRef.setNativeProps({
+          refreshing: this.props.refreshing
+        });
+
+        this._lastNativeRefreshing = this.props.refreshing;
+      }
+    },
+    render: function render() {
+      var _this = this;
+
+      return React.createElement(NativeRefreshControl, babelHelpers.extends({}, this.props, {
+        ref: function ref(_ref) {
+          _this._nativeRef = _ref;
+        },
+        onRefresh: this._onRefresh
+      }));
+    },
+    _onRefresh: function _onRefresh() {
+      this._lastNativeRefreshing = true;
+      this.props.onRefresh && this.props.onRefresh();
+      this.forceUpdate();
+    }
+  });
+  {
+    var NativeRefreshControl = requireNativeComponent('AndroidSwipeRefreshLayout', RefreshControl);
+  }
+  module.exports = RefreshControl;
+});

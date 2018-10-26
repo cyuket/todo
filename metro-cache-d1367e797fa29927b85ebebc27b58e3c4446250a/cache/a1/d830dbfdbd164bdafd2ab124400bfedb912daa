@@ -1,0 +1,84 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Easing = undefined;
+
+  var _reactNative = _require(_dependencyMap[0]);
+
+  var _Easing = _require(_dependencyMap[1]);
+
+  var _Easing2 = babelHelpers.interopRequireDefault(_Easing);
+
+  var _AnimatedClock = _require(_dependencyMap[2]);
+
+  var _AnimatedClock2 = babelHelpers.interopRequireDefault(_AnimatedClock);
+
+  var _AnimatedValue = _require(_dependencyMap[3]);
+
+  var _AnimatedValue2 = babelHelpers.interopRequireDefault(_AnimatedValue);
+
+  var _AnimatedNode = _require(_dependencyMap[4]);
+
+  var _AnimatedNode2 = babelHelpers.interopRequireDefault(_AnimatedNode);
+
+  var _base = _require(_dependencyMap[5]);
+
+  var base = babelHelpers.interopRequireWildcard(_base);
+
+  var _derived = _require(_dependencyMap[6]);
+
+  var derived = babelHelpers.interopRequireWildcard(_derived);
+
+  var _createAnimatedComponent = _require(_dependencyMap[7]);
+
+  var _createAnimatedComponent2 = babelHelpers.interopRequireDefault(_createAnimatedComponent);
+
+  var _decay = _require(_dependencyMap[8]);
+
+  var _decay2 = babelHelpers.interopRequireDefault(_decay);
+
+  var _timing = _require(_dependencyMap[9]);
+
+  var _timing2 = babelHelpers.interopRequireDefault(_timing);
+
+  var _spring = _require(_dependencyMap[10]);
+
+  var _spring2 = babelHelpers.interopRequireDefault(_spring);
+
+  var _TimingAnimation = _require(_dependencyMap[11]);
+
+  var _TimingAnimation2 = babelHelpers.interopRequireDefault(_TimingAnimation);
+
+  var _SpringAnimation = _require(_dependencyMap[12]);
+
+  var _SpringAnimation2 = babelHelpers.interopRequireDefault(_SpringAnimation);
+
+  var _DecayAnimation = _require(_dependencyMap[13]);
+
+  var _DecayAnimation2 = babelHelpers.interopRequireDefault(_DecayAnimation);
+
+  var _ConfigHelper = _require(_dependencyMap[14]);
+
+  var _backwardCompatibleAnimWrapper = _require(_dependencyMap[15]);
+
+  var _backwardCompatibleAnimWrapper2 = babelHelpers.interopRequireDefault(_backwardCompatibleAnimWrapper);
+
+  var Animated = babelHelpers.extends({
+    View: (0, _createAnimatedComponent2.default)(_reactNative.View),
+    Text: (0, _createAnimatedComponent2.default)(_reactNative.Text),
+    Image: (0, _createAnimatedComponent2.default)(_reactNative.Image),
+    ScrollView: (0, _createAnimatedComponent2.default)(_reactNative.ScrollView),
+    Clock: _AnimatedClock2.default,
+    Value: _AnimatedValue2.default,
+    Node: _AnimatedNode2.default
+  }, base, derived, {
+    decay: (0, _backwardCompatibleAnimWrapper2.default)(_decay2.default, _DecayAnimation2.default),
+    timing: (0, _backwardCompatibleAnimWrapper2.default)(_timing2.default, _TimingAnimation2.default),
+    spring: (0, _backwardCompatibleAnimWrapper2.default)(_spring2.default, _SpringAnimation2.default),
+    addWhitelistedNativeProps: _ConfigHelper.addWhitelistedNativeProps,
+    addWhitelistedUIProps: _ConfigHelper.addWhitelistedUIProps
+  });
+  exports.default = Animated;
+  exports.Easing = _Easing2.default;
+});

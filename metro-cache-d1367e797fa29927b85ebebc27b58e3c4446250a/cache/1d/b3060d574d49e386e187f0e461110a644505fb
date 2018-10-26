@@ -1,0 +1,70 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _Animation2 = _require(_dependencyMap[0]);
+
+  var _Animation3 = babelHelpers.interopRequireDefault(_Animation2);
+
+  var _decay = _require(_dependencyMap[1]);
+
+  var _decay2 = babelHelpers.interopRequireDefault(_decay);
+
+  var _base = _require(_dependencyMap[2]);
+
+  var _AnimatedClock = _require(_dependencyMap[3]);
+
+  var _AnimatedClock2 = babelHelpers.interopRequireDefault(_AnimatedClock);
+
+  var _AnimatedValue = _require(_dependencyMap[4]);
+
+  var _AnimatedValue2 = babelHelpers.interopRequireDefault(_AnimatedValue);
+
+  var DecayAnimation = function (_Animation) {
+    babelHelpers.inherits(DecayAnimation, _Animation);
+
+    function DecayAnimation(config) {
+      babelHelpers.classCallCheck(this, DecayAnimation);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (DecayAnimation.__proto__ || Object.getPrototypeOf(DecayAnimation)).call(this));
+
+      _this._deceleration = config.deceleration !== undefined ? config.deceleration : 0.998;
+      _this._velocity = config.velocity;
+      return _this;
+    }
+
+    babelHelpers.createClass(DecayAnimation, [{
+      key: "start",
+      value: function start(value) {
+        this._clock = new _AnimatedClock2.default();
+        var state = {
+          finished: new _AnimatedValue2.default(0),
+          velocity: new _AnimatedValue2.default(this._velocity),
+          position: value,
+          time: new _AnimatedValue2.default(0)
+        };
+        var config = {
+          deceleration: this._deceleration
+        };
+        return (0, _base.block)([(0, _base.cond)((0, _base.clockRunning)(this._clock), 0, [(0, _base.startClock)(this._clock)]), (0, _decay2.default)(this._clock, state, config), (0, _base.cond)(state.finished, (0, _base.stopClock)(this._clock))]);
+      }
+    }, {
+      key: "stop",
+      value: function stop() {}
+    }], [{
+      key: "getDefaultState",
+      value: function getDefaultState() {
+        return {
+          position: new _AnimatedValue2.default(0),
+          finished: new _AnimatedValue2.default(0),
+          time: new _AnimatedValue2.default(0),
+          velocity: new _AnimatedValue2.default(0)
+        };
+      }
+    }]);
+    return DecayAnimation;
+  }(_Animation3.default);
+
+  exports.default = DecayAnimation;
+});

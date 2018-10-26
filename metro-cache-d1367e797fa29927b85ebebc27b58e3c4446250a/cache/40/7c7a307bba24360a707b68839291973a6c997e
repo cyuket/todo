@@ -1,0 +1,47 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _AnimatedNode2 = _require(_dependencyMap[0]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var _AnimatedClock = _require(_dependencyMap[1]);
+
+  var _AnimatedClock2 = babelHelpers.interopRequireDefault(_AnimatedClock);
+
+  var _invariant = _require(_dependencyMap[2]);
+
+  var _invariant2 = babelHelpers.interopRequireDefault(_invariant);
+
+  var AnimatedStopClock = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedStopClock, _AnimatedNode);
+
+    function AnimatedStopClock(clockNode) {
+      babelHelpers.classCallCheck(this, AnimatedStopClock);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedStopClock.__proto__ || Object.getPrototypeOf(AnimatedStopClock)).call(this, {
+        type: 'clockStop',
+        clock: clockNode.__nodeID
+      }));
+
+      (0, _invariant2.default)(clockNode instanceof _AnimatedClock2.default, 'Node is not of an AnimatedClock type');
+      _this._clockNode = clockNode;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedStopClock, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        this._clockNode.stop();
+
+        return 0;
+      }
+    }]);
+    return AnimatedStopClock;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedStopClock;
+});

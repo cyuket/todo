@@ -1,0 +1,83 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var React = babelHelpers.interopRequireWildcard(_react);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var _withNativeAd = _require(_dependencyMap[2]);
+
+  var TriggerableViewChild = function (_React$Component) {
+    babelHelpers.inherits(TriggerableViewChild, _React$Component);
+
+    function TriggerableViewChild() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, TriggerableViewChild);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = TriggerableViewChild.__proto__ || Object.getPrototypeOf(TriggerableViewChild)).call.apply(_ref, [this].concat(args))), _this), _this._handleWrapperRef = function (ref) {
+        if (_this._wrapperRef) {
+          _this.props.unregister(_this._wrapperRef);
+
+          _this._wrapperRef = null;
+        }
+
+        if (ref) {
+          _this.props.register(ref);
+
+          _this._wrapperRef = ref;
+        }
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(TriggerableViewChild, [{
+      key: "render",
+      value: function render() {
+        return React.createElement(_reactNative.TouchableOpacity, babelHelpers.extends({}, this.props, {
+          ref: this._handleWrapperRef,
+          collapsable: false,
+          onPress: this.props.onTriggerEvent
+        }));
+      }
+    }]);
+    return TriggerableViewChild;
+  }(React.Component);
+
+  var TriggerableView = function (_React$Component2) {
+    babelHelpers.inherits(TriggerableView, _React$Component2);
+
+    function TriggerableView() {
+      babelHelpers.classCallCheck(this, TriggerableView);
+      return babelHelpers.possibleConstructorReturn(this, (TriggerableView.__proto__ || Object.getPrototypeOf(TriggerableView)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(TriggerableView, [{
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        return React.createElement(
+          _withNativeAd.TriggerableContext.Consumer,
+          null,
+          function (contextValue) {
+            return React.createElement(TriggerableViewChild, babelHelpers.extends({}, _this3.props, contextValue));
+          }
+        );
+      }
+    }]);
+    return TriggerableView;
+  }(React.Component);
+
+  exports.default = TriggerableView;
+});

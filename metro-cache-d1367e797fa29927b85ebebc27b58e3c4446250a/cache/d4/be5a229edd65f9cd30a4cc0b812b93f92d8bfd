@@ -1,0 +1,40 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var AppContainer = _require(_dependencyMap[0]);
+
+  var React = _require(_dependencyMap[1]);
+
+  var ReactNative = _require(_dependencyMap[2]);
+
+  var invariant = _require(_dependencyMap[3]);
+
+  _require(_dependencyMap[4]);
+
+  function renderApplication(RootComponent, initialProps, rootTag, WrapperComponent) {
+    invariant(rootTag, 'Expect to have a valid rootTag, instead got ', rootTag);
+    var renderable = React.createElement(
+      AppContainer,
+      {
+        rootTag: rootTag,
+        WrapperComponent: WrapperComponent
+      },
+      React.createElement(RootComponent, babelHelpers.extends({}, initialProps, {
+        rootTag: rootTag
+      }))
+    );
+
+    if (RootComponent.prototype != null && RootComponent.prototype.unstable_isAsyncReactComponent === true) {
+      var AsyncMode = React.unstable_AsyncMode;
+      renderable = React.createElement(
+        AsyncMode,
+        null,
+        renderable
+      );
+    }
+
+    ReactNative.render(renderable, rootTag);
+  }
+
+  module.exports = renderApplication;
+});

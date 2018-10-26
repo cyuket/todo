@@ -1,0 +1,17 @@
+(function (global) {
+  Object.assign = function (target, sources) {
+    for (var nextIndex = 1; nextIndex < arguments.length; nextIndex++) {
+      var nextSource = arguments[nextIndex];
+
+      if (nextSource == null) {
+        continue;
+      }
+
+      for (var key in nextSource) {
+        target[key] = nextSource[key];
+      }
+    }
+
+    return target;
+  };
+})(this);

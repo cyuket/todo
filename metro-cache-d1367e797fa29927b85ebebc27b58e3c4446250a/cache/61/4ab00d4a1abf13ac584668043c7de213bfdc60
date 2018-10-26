@@ -1,0 +1,70 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _class, _temp;
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var PropTypes = _require(_dependencyMap[1]);
+
+  var React = _require(_dependencyMap[2]);
+
+  var ReactNative = _require(_dependencyMap[3]);
+
+  var ViewPropTypes = _require(_dependencyMap[4]);
+
+  var requireNativeComponent = _require(_dependencyMap[5]);
+
+  var STYLE_ATTRIBUTES = ['Horizontal', 'Normal', 'Small', 'Large', 'Inverse', 'SmallInverse', 'LargeInverse'];
+
+  var indeterminateType = function indeterminateType(props, propName, componentName) {
+    var checker = function checker() {
+      var indeterminate = props[propName];
+      var styleAttr = props.styleAttr;
+
+      if (!indeterminate && styleAttr !== 'Horizontal') {
+        return new Error('indeterminate=false is only valid for styleAttr=Horizontal');
+      }
+    };
+
+    for (var _len = arguments.length, rest = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+      rest[_key - 3] = arguments[_key];
+    }
+
+    return PropTypes.bool.apply(PropTypes, [props, propName, componentName].concat(rest)) || checker();
+  };
+
+  var ProgressBarAndroid = (_temp = _class = function (_ReactNative$NativeCo) {
+    babelHelpers.inherits(ProgressBarAndroid, _ReactNative$NativeCo);
+
+    function ProgressBarAndroid() {
+      babelHelpers.classCallCheck(this, ProgressBarAndroid);
+      return babelHelpers.possibleConstructorReturn(this, (ProgressBarAndroid.__proto__ || Object.getPrototypeOf(ProgressBarAndroid)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(ProgressBarAndroid, [{
+      key: "render",
+      value: function render() {
+        return React.createElement(AndroidProgressBar, this.props);
+      }
+    }]);
+    return ProgressBarAndroid;
+  }(ReactNative.NativeComponent), _class.propTypes = babelHelpers.extends({}, ViewPropTypes, {
+    styleAttr: PropTypes.oneOf(STYLE_ATTRIBUTES),
+    animating: PropTypes.bool,
+    indeterminate: indeterminateType,
+    progress: PropTypes.number,
+    color: ColorPropType,
+    testID: PropTypes.string
+  }), _class.defaultProps = {
+    styleAttr: 'Normal',
+    indeterminate: true,
+    animating: true
+  }, _temp);
+  var AndroidProgressBar = requireNativeComponent('AndroidProgressBar', ProgressBarAndroid, {
+    nativeOnly: {
+      animating: true
+    }
+  });
+  module.exports = ProgressBarAndroid;
+});

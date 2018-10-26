@@ -1,0 +1,17 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  function deepFreezeAndThrowOnMutationInDev(object) {
+    return object;
+  }
+
+  function throwOnImmutableMutation(key, value) {
+    throw Error('You attempted to set the key `' + key + '` with the value `' + JSON.stringify(value) + '` on an object that is meant to be immutable ' + 'and has been frozen.');
+  }
+
+  function identity(value) {
+    return value;
+  }
+
+  module.exports = deepFreezeAndThrowOnMutationInDev;
+});

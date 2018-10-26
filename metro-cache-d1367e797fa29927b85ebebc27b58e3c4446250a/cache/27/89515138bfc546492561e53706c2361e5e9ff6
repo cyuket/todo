@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _reactNativeBranch = _require(_dependencyMap[0]);
+
+  var _reactNativeBranch2 = babelHelpers.interopRequireDefault(_reactNativeBranch);
+
+  _reactNativeBranch2.default.BranchEvent = _reactNativeBranch.BranchEvent;
+  exports.default = _reactNativeBranch2.default;
+});

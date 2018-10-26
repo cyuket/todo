@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _vectorIcons = _require(_dependencyMap[0]);
+
+  var _vectorIcons2 = babelHelpers.interopRequireDefault(_vectorIcons);
+
+  exports.default = _vectorIcons2.default;
+});

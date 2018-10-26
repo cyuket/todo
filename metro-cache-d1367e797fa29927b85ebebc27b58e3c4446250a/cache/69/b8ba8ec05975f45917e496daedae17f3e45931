@@ -1,0 +1,94 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.requireNativeViewManager = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var _react2 = babelHelpers.interopRequireDefault(_react);
+
+  var _lodash = _require(_dependencyMap[1]);
+
+  var _lodash2 = babelHelpers.interopRequireDefault(_lodash);
+
+  var _lodash3 = _require(_dependencyMap[2]);
+
+  var _lodash4 = babelHelpers.interopRequireDefault(_lodash3);
+
+  var _propTypes = _require(_dependencyMap[3]);
+
+  var _propTypes2 = babelHelpers.interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[4]);
+
+  var ViewPropTypesKeys = Object.keys(_reactNative.ViewPropTypes);
+
+  var getViewManagerAdapterNameForViewName = function getViewManagerAdapterNameForViewName(name) {
+    return "ViewManagerAdapter_" + name;
+  };
+
+  var createNativeComponentClass = function createNativeComponentClass(name) {
+    var _class, _temp;
+
+    var NativeComponent = (_temp = _class = function (_React$Component) {
+      babelHelpers.inherits(NativeComponent, _React$Component);
+
+      function NativeComponent() {
+        babelHelpers.classCallCheck(this, NativeComponent);
+        return babelHelpers.possibleConstructorReturn(this, (NativeComponent.__proto__ || Object.getPrototypeOf(NativeComponent)).apply(this, arguments));
+      }
+
+      babelHelpers.createClass(NativeComponent, [{
+        key: "render",
+        value: function render() {
+          return _react2.default.createElement(UnderlyingNativeComponent, this.props);
+        }
+      }]);
+      return NativeComponent;
+    }(_react2.default.Component), _class.propTypes = babelHelpers.extends({}, _reactNative.ViewPropTypes, {
+      proxiedProperties: _propTypes2.default.object
+    }), _temp);
+    var nativeComponentName = getViewManagerAdapterNameForViewName(name);
+    var UnderlyingNativeComponent = (0, _reactNative.requireNativeComponent)(nativeComponentName, NativeComponent, {
+      nativeOnly: Object.keys(_reactNative.UIManager[nativeComponentName].NativeProps).reduce(function (acc, key) {
+        return babelHelpers.extends({}, acc, babelHelpers.defineProperty({}, key, true));
+      }, {})
+    });
+    NativeComponent.displayName = name;
+    return NativeComponent;
+  };
+
+  var requireNativeViewManager = exports.requireNativeViewManager = function requireNativeViewManager(name, component) {
+    if (!_reactNative.NativeModules.ExpoNativeModuleProxy.viewManagersNames.includes(name)) {
+      console.warn("It seems the native view manager which you're trying to require by namefrom NativeViewManagerAdapter isn't exported by expo-react-native-adapter. Things may not work properly. Exported view managers: [" + _reactNative.NativeModules.ExpoNativeModuleProxy.viewManagersNames.join(', ') + ("], and you required \"" + name + "\"."));
+    }
+
+    var NativeComponent = createNativeComponentClass(name);
+    var PropTypesKeys = ['children'].concat(babelHelpers.toConsumableArray(ViewPropTypesKeys), babelHelpers.toConsumableArray(Object.keys(_reactNative.UIManager[getViewManagerAdapterNameForViewName(name)].NativeProps)), babelHelpers.toConsumableArray(Object.keys(_reactNative.UIManager[getViewManagerAdapterNameForViewName(name)].directEventTypes)));
+
+    var NativeComponentWrapper = function (_React$Component2) {
+      babelHelpers.inherits(NativeComponentWrapper, _React$Component2);
+
+      function NativeComponentWrapper() {
+        babelHelpers.classCallCheck(this, NativeComponentWrapper);
+        return babelHelpers.possibleConstructorReturn(this, (NativeComponentWrapper.__proto__ || Object.getPrototypeOf(NativeComponentWrapper)).apply(this, arguments));
+      }
+
+      babelHelpers.createClass(NativeComponentWrapper, [{
+        key: "render",
+        value: function render() {
+          var nativeProps = (0, _lodash4.default)(this.props, PropTypesKeys);
+          var proxiedProps = (0, _lodash2.default)(this.props, PropTypesKeys);
+          return _react2.default.createElement(NativeComponent, babelHelpers.extends({
+            proxiedProperties: proxiedProps
+          }, nativeProps));
+        }
+      }]);
+      return NativeComponentWrapper;
+    }(_react2.default.Component);
+
+    NativeComponentWrapper.displayName = "ViewWrapper<" + name + ">";
+    return NativeComponentWrapper;
+  };
+});

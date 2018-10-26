@@ -1,0 +1,42 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _utils = _require(_dependencyMap[0]);
+
+  var _AnimatedNode2 = _require(_dependencyMap[1]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var AnimatedDebug = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedDebug, _AnimatedNode);
+
+    function AnimatedDebug(message, value) {
+      babelHelpers.classCallCheck(this, AnimatedDebug);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedDebug.__proto__ || Object.getPrototypeOf(AnimatedDebug)).call(this, {
+        type: 'debug',
+        message: message,
+        value: value.__nodeID
+      }, [value]));
+
+      _this._message = message;
+      _this._value = value;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedDebug, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        var value = (0, _utils.val)(this._value);
+        console.log(this._message, value);
+        return value;
+      }
+    }]);
+    return AnimatedDebug;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedDebug;
+});

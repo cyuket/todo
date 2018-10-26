@@ -1,0 +1,8 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var emptyFunction = _require(_dependencyMap[0]);
+
+  var warning = emptyFunction;
+  module.exports = warning;
+});

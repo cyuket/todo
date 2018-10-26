@@ -1,0 +1,188 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _class, _temp2;
+
+  var React = _require(_dependencyMap[0]);
+
+  var PropTypes = _require(_dependencyMap[1]);
+
+  var ColorPropType = _require(_dependencyMap[2]);
+
+  var Platform = _require(_dependencyMap[3]);
+
+  var processColor = _require(_dependencyMap[4]);
+
+  var StatusBarManager = _require(_dependencyMap[5]).StatusBarManager;
+
+  function mergePropsStack(propsStack, defaultValues) {
+    return propsStack.reduce(function (prev, cur) {
+      for (var prop in cur) {
+        if (cur[prop] != null) {
+          prev[prop] = cur[prop];
+        }
+      }
+
+      return prev;
+    }, babelHelpers.extends({}, defaultValues));
+  }
+
+  function createStackEntry(props) {
+    return {
+      backgroundColor: props.backgroundColor != null ? {
+        value: props.backgroundColor,
+        animated: props.animated
+      } : null,
+      barStyle: props.barStyle != null ? {
+        value: props.barStyle,
+        animated: props.animated
+      } : null,
+      translucent: props.translucent,
+      hidden: props.hidden != null ? {
+        value: props.hidden,
+        animated: props.animated,
+        transition: props.showHideTransition
+      } : null,
+      networkActivityIndicatorVisible: props.networkActivityIndicatorVisible
+    };
+  }
+
+  var StatusBar = (_temp2 = _class = function (_React$Component) {
+    babelHelpers.inherits(StatusBar, _React$Component);
+
+    function StatusBar() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, StatusBar);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = StatusBar.__proto__ || Object.getPrototypeOf(StatusBar)).call.apply(_ref, [this].concat(args))), _this), _this._stackEntry = null, _this._updatePropsStack = function () {
+        clearImmediate(StatusBar._updateImmediate);
+        StatusBar._updateImmediate = setImmediate(function () {
+          var oldProps = StatusBar._currentValues;
+          var mergedProps = mergePropsStack(StatusBar._propsStack, StatusBar._defaultProps);
+          {
+            if (!oldProps || oldProps.barStyle.value !== mergedProps.barStyle.value) {
+              StatusBarManager.setStyle(mergedProps.barStyle.value, mergedProps.barStyle.animated);
+            }
+
+            if (!oldProps || oldProps.hidden.value !== mergedProps.hidden.value) {
+              StatusBarManager.setHidden(mergedProps.hidden.value, mergedProps.hidden.animated ? mergedProps.hidden.transition : 'none');
+            }
+
+            if (!oldProps || oldProps.networkActivityIndicatorVisible !== mergedProps.networkActivityIndicatorVisible) {
+              StatusBarManager.setNetworkActivityIndicatorVisible(mergedProps.networkActivityIndicatorVisible);
+            }
+          }
+          StatusBar._currentValues = mergedProps;
+        });
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(StatusBar, [{
+      key: "componentDidMount",
+      value: function componentDidMount() {
+        this._stackEntry = createStackEntry(this.props);
+
+        StatusBar._propsStack.push(this._stackEntry);
+
+        this._updatePropsStack();
+      }
+    }, {
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        var index = StatusBar._propsStack.indexOf(this._stackEntry);
+
+        StatusBar._propsStack.splice(index, 1);
+
+        this._updatePropsStack();
+      }
+    }, {
+      key: "componentDidUpdate",
+      value: function componentDidUpdate() {
+        var index = StatusBar._propsStack.indexOf(this._stackEntry);
+
+        this._stackEntry = createStackEntry(this.props);
+        StatusBar._propsStack[index] = this._stackEntry;
+
+        this._updatePropsStack();
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return null;
+      }
+    }], [{
+      key: "setHidden",
+      value: function setHidden(hidden, animation) {
+        animation = animation || 'none';
+        StatusBar._defaultProps.hidden.value = hidden;
+        {
+          StatusBarManager.setHidden(hidden, animation);
+        }
+      }
+    }, {
+      key: "setBarStyle",
+      value: function setBarStyle(style, animated) {
+        animated = animated || false;
+        StatusBar._defaultProps.barStyle.value = style;
+        {
+          StatusBarManager.setStyle(style, animated);
+        }
+      }
+    }, {
+      key: "setNetworkActivityIndicatorVisible",
+      value: function setNetworkActivityIndicatorVisible(visible) {
+        StatusBar._defaultProps.networkActivityIndicatorVisible = visible;
+        StatusBarManager.setNetworkActivityIndicatorVisible(visible);
+      }
+    }, {
+      key: "setBackgroundColor",
+      value: function setBackgroundColor(color, animated) {
+        {
+          console.warn('`setBackgroundColor` is only available on Android');
+          return;
+        }
+        animated = animated || false;
+        StatusBar._defaultProps.backgroundColor.value = color;
+        StatusBarManager.setColor(processColor(color), animated);
+      }
+    }, {
+      key: "setTranslucent",
+      value: function setTranslucent(translucent) {
+        {
+          console.warn('`setTranslucent` is only available on Android');
+          return;
+        }
+        StatusBar._defaultProps.translucent = translucent;
+        StatusBarManager.setTranslucent(translucent);
+      }
+    }]);
+    return StatusBar;
+  }(React.Component), _class._propsStack = [], _class._defaultProps = createStackEntry({
+    animated: false,
+    showHideTransition: 'fade',
+    backgroundColor: 'black',
+    barStyle: 'default',
+    translucent: false,
+    hidden: false,
+    networkActivityIndicatorVisible: false
+  }), _class._updateImmediate = null, _class._currentValues = null, _class.currentHeight = StatusBarManager.HEIGHT, _class.propTypes = {
+    hidden: PropTypes.bool,
+    animated: PropTypes.bool,
+    backgroundColor: ColorPropType,
+    translucent: PropTypes.bool,
+    barStyle: PropTypes.oneOf(['default', 'light-content', 'dark-content']),
+    networkActivityIndicatorVisible: PropTypes.bool,
+    showHideTransition: PropTypes.oneOf(['fade', 'slide'])
+  }, _class.defaultProps = {
+    animated: false,
+    showHideTransition: 'fade'
+  }, _temp2);
+  module.exports = StatusBar;
+});

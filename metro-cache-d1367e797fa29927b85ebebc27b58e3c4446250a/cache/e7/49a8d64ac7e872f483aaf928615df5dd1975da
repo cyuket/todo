@@ -1,0 +1,71 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.default = undefined;
+
+    var _class, _temp;
+
+    var _react = _require(_dependencyMap[0]);
+
+    var _react2 = babelHelpers.interopRequireDefault(_react);
+
+    var _propTypes = _require(_dependencyMap[1]);
+
+    var _propTypes2 = babelHelpers.interopRequireDefault(_propTypes);
+
+    var _props = _require(_dependencyMap[2]);
+
+    var _extractGradient = _require(_dependencyMap[3]);
+
+    var _extractGradient2 = babelHelpers.interopRequireDefault(_extractGradient);
+
+    var _createReactNativeComponentClass = _require(_dependencyMap[4]);
+
+    var _createReactNativeComponentClass2 = babelHelpers.interopRequireDefault(_createReactNativeComponentClass);
+
+    var _attributes = _require(_dependencyMap[5]);
+
+    var _default = (_temp = _class = function (_Component) {
+        babelHelpers.inherits(_default, _Component);
+
+        function _default() {
+            babelHelpers.classCallCheck(this, _default);
+            return babelHelpers.possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+        }
+
+        babelHelpers.createClass(_default, [{
+            key: "render",
+            value: function render() {
+                var props = this.props;
+                return _react2.default.createElement(RNSVGLinearGradient, babelHelpers.extends({
+                    x1: props.x1.toString(),
+                    y1: props.y1.toString(),
+                    x2: props.x2.toString(),
+                    y2: props.y2.toString()
+                }, (0, _extractGradient2.default)(this.props)));
+            }
+        }]);
+        return _default;
+    }(_react.Component), _class.displayName = 'LinearGradient', _class.propTypes = {
+        x1: _props.numberProp.isRequired,
+        x2: _props.numberProp.isRequired,
+        y1: _props.numberProp.isRequired,
+        y2: _props.numberProp.isRequired,
+        gradientUnits: _propTypes2.default.oneOf(['objectBoundingBox', 'userSpaceOnUse']),
+        id: _propTypes2.default.string.isRequired
+    }, _class.defaultProps = {
+        x1: '0%',
+        y1: '0%',
+        x2: '100%',
+        y2: '0%'
+    }, _temp);
+
+    exports.default = _default;
+    var RNSVGLinearGradient = (0, _createReactNativeComponentClass2.default)('RNSVGLinearGradient', function () {
+        return {
+            validAttributes: _attributes.LinearGradientAttributes,
+            uiViewClassName: 'RNSVGLinearGradient'
+        };
+    });
+});

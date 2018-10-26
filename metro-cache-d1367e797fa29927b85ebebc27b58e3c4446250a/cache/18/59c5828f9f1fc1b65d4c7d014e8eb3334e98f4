@@ -1,0 +1,60 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    get Entypo() {
+      return _require(_dependencyMap[0]).default;
+    },
+
+    get EvilIcons() {
+      return _require(_dependencyMap[1]).default;
+    },
+
+    get Feather() {
+      return _require(_dependencyMap[2]).default;
+    },
+
+    get FontAwesome() {
+      return _require(_dependencyMap[3]).default;
+    },
+
+    get Foundation() {
+      return _require(_dependencyMap[4]).default;
+    },
+
+    get Ionicons() {
+      return _require(_dependencyMap[5]).default;
+    },
+
+    get MaterialCommunityIcons() {
+      return _require(_dependencyMap[6]).default;
+    },
+
+    get MaterialIcons() {
+      return _require(_dependencyMap[7]).default;
+    },
+
+    get Octicons() {
+      return _require(_dependencyMap[8]).default;
+    },
+
+    get SimpleLineIcons() {
+      return _require(_dependencyMap[9]).default;
+    },
+
+    get Zocial() {
+      return _require(_dependencyMap[10]).default;
+    },
+
+    get createIconSet() {
+      return _require(_dependencyMap[11]).default;
+    },
+
+    get createIconSetFromFontello() {
+      return _require(_dependencyMap[12]).default;
+    },
+
+    get createIconSetFromIcoMoon() {
+      return _require(_dependencyMap[13]).default;
+    }
+
+  };
+});

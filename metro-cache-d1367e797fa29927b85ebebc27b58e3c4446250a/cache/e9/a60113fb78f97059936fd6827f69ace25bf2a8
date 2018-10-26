@@ -1,0 +1,47 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _AnimatedNode2 = _require(_dependencyMap[0]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var _AnimatedClock = _require(_dependencyMap[1]);
+
+  var _AnimatedClock2 = babelHelpers.interopRequireDefault(_AnimatedClock);
+
+  var _invariant = _require(_dependencyMap[2]);
+
+  var _invariant2 = babelHelpers.interopRequireDefault(_invariant);
+
+  var AnimatedStartClock = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedStartClock, _AnimatedNode);
+
+    function AnimatedStartClock(clockNode) {
+      babelHelpers.classCallCheck(this, AnimatedStartClock);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedStartClock.__proto__ || Object.getPrototypeOf(AnimatedStartClock)).call(this, {
+        type: 'clockStart',
+        clock: clockNode.__nodeID
+      }));
+
+      (0, _invariant2.default)(clockNode instanceof _AnimatedClock2.default, 'Node is not of an AnimatedClock type');
+      _this._clockNode = clockNode;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedStartClock, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        this._clockNode.start();
+
+        return 0;
+      }
+    }]);
+    return AnimatedStartClock;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedStartClock;
+});

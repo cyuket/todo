@@ -1,0 +1,40 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _invariant = _require(_dependencyMap[0]);
+
+  var _invariant2 = babelHelpers.interopRequireDefault(_invariant);
+
+  var _react = _require(_dependencyMap[1]);
+
+  var React = babelHelpers.interopRequireWildcard(_react);
+
+  var _reactNative = _require(_dependencyMap[2]);
+
+  var RNViewShot = _reactNative.NativeModules.RNViewShot;
+
+  exports.default = function takeSnapshotAsync(node, options) {
+    var handle;
+    return regeneratorRuntime.async(function takeSnapshotAsync$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            handle = typeof node === 'number' ? node : _getNodeHandle(node);
+            return _context.abrupt("return", RNViewShot.takeSnapshot(handle, options));
+
+          case 2:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, this);
+  };
+
+  function _getNodeHandle(component) {
+    var handle = (0, _reactNative.findNodeHandle)(component);
+    (0, _invariant2.default)(handle != null, "Could not find the React node handle for component to snapshot: %s", component);
+    return handle;
+  }
+});

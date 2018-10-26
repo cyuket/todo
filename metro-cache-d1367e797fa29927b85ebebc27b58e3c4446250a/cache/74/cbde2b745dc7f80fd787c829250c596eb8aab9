@@ -1,0 +1,51 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var React = _require(_dependencyMap[1]);
+
+  var StyleSheet = _require(_dependencyMap[2]);
+
+  var ViewPropTypes = _require(_dependencyMap[3]);
+
+  var requireNativeComponent = _require(_dependencyMap[4]);
+
+  var RCTInputAccessoryView = requireNativeComponent('RCTInputAccessoryView');
+
+  var InputAccessoryView = function (_React$Component) {
+    babelHelpers.inherits(InputAccessoryView, _React$Component);
+
+    function InputAccessoryView() {
+      babelHelpers.classCallCheck(this, InputAccessoryView);
+      return babelHelpers.possibleConstructorReturn(this, (InputAccessoryView.__proto__ || Object.getPrototypeOf(InputAccessoryView)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(InputAccessoryView, [{
+      key: "render",
+      value: function render() {
+        if (React.Children.count(this.props.children) === 0) {
+          return null;
+        }
+
+        return React.createElement(
+          RCTInputAccessoryView,
+          {
+            style: [this.props.style, styles.container],
+            nativeID: this.props.nativeID,
+            backgroundColor: this.props.backgroundColor
+          },
+          this.props.children
+        );
+      }
+    }]);
+    return InputAccessoryView;
+  }(React.Component);
+
+  var styles = StyleSheet.create({
+    container: {
+      position: 'absolute'
+    }
+  });
+  module.exports = InputAccessoryView;
+});

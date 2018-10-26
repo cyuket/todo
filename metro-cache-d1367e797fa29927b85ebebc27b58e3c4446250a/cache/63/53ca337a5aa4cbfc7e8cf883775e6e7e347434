@@ -1,0 +1,119 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _class, _temp;
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var Platform = _require(_dependencyMap[1]);
+
+  var React = _require(_dependencyMap[2]);
+
+  var PropTypes = _require(_dependencyMap[3]);
+
+  var StyleSheet = _require(_dependencyMap[4]);
+
+  var Text = _require(_dependencyMap[5]);
+
+  var TouchableNativeFeedback = _require(_dependencyMap[6]);
+
+  var TouchableOpacity = _require(_dependencyMap[7]);
+
+  var View = _require(_dependencyMap[8]);
+
+  var invariant = _require(_dependencyMap[9]);
+
+  var Button = (_temp = _class = function (_React$Component) {
+    babelHelpers.inherits(Button, _React$Component);
+
+    function Button() {
+      babelHelpers.classCallCheck(this, Button);
+      return babelHelpers.possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(Button, [{
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            accessibilityLabel = _props.accessibilityLabel,
+            color = _props.color,
+            onPress = _props.onPress,
+            title = _props.title,
+            hasTVPreferredFocus = _props.hasTVPreferredFocus,
+            disabled = _props.disabled,
+            testID = _props.testID;
+        var buttonStyles = [styles.button];
+        var textStyles = [styles.text];
+
+        if (color) {
+          {
+            textStyles.push({
+              color: color
+            });
+          }
+        }
+
+        var accessibilityTraits = ['button'];
+
+        if (disabled) {
+          buttonStyles.push(styles.buttonDisabled);
+          textStyles.push(styles.textDisabled);
+          accessibilityTraits.push('disabled');
+        }
+
+        invariant(typeof title === 'string', 'The title prop of a Button must be a string');
+        var formattedTitle = title;
+        var Touchable = TouchableOpacity;
+        return React.createElement(
+          Touchable,
+          {
+            accessibilityComponentType: "button",
+            accessibilityLabel: accessibilityLabel,
+            accessibilityTraits: accessibilityTraits,
+            hasTVPreferredFocus: hasTVPreferredFocus,
+            testID: testID,
+            disabled: disabled,
+            onPress: onPress
+          },
+          React.createElement(
+            View,
+            {
+              style: buttonStyles
+            },
+            React.createElement(
+              Text,
+              {
+                style: textStyles,
+                disabled: disabled
+              },
+              formattedTitle
+            )
+          )
+        );
+      }
+    }]);
+    return Button;
+  }(React.Component), _class.propTypes = {
+    title: PropTypes.string.isRequired,
+    accessibilityLabel: PropTypes.string,
+    color: ColorPropType,
+    disabled: PropTypes.bool,
+    hasTVPreferredFocus: PropTypes.bool,
+    onPress: PropTypes.func.isRequired,
+    testID: PropTypes.string
+  }, _temp);
+  var styles = StyleSheet.create({
+    button: {},
+    text: {
+      color: '#007AFF',
+      textAlign: 'center',
+      padding: 8,
+      fontSize: 18
+    },
+    buttonDisabled: {},
+    textDisabled: {
+      color: '#cdcdcd'
+    }
+  });
+  module.exports = Button;
+});

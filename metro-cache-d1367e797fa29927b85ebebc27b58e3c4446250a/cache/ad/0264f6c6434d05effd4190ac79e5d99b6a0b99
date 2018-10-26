@@ -1,0 +1,59 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var MissingNativeEventEmitterShim = _require(_dependencyMap[0]);
+
+  var NativeEventEmitter = _require(_dependencyMap[1]);
+
+  var RCTNetworkingNative = _require(_dependencyMap[2]).Networking;
+
+  var convertRequestBody = _require(_dependencyMap[3]);
+
+  var RCTNetworking = function (_NativeEventEmitter) {
+    babelHelpers.inherits(RCTNetworking, _NativeEventEmitter);
+
+    function RCTNetworking() {
+      babelHelpers.classCallCheck(this, RCTNetworking);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (RCTNetworking.__proto__ || Object.getPrototypeOf(RCTNetworking)).call(this, RCTNetworkingNative));
+
+      _this.isAvailable = true;
+      return _this;
+    }
+
+    babelHelpers.createClass(RCTNetworking, [{
+      key: "sendRequest",
+      value: function sendRequest(method, trackingName, url, headers, data, responseType, incrementalUpdates, timeout, callback, withCredentials) {
+        var body = convertRequestBody(data);
+        RCTNetworkingNative.sendRequest({
+          method: method,
+          url: url,
+          data: babelHelpers.extends({}, body, {
+            trackingName: trackingName
+          }),
+          headers: headers,
+          responseType: responseType,
+          incrementalUpdates: incrementalUpdates,
+          timeout: timeout,
+          withCredentials: withCredentials
+        }, callback);
+      }
+    }, {
+      key: "abortRequest",
+      value: function abortRequest(requestId) {
+        RCTNetworkingNative.abortRequest(requestId);
+      }
+    }, {
+      key: "clearCookies",
+      value: function clearCookies(callback) {
+        RCTNetworkingNative.clearCookies(callback);
+      }
+    }]);
+    return RCTNetworking;
+  }(NativeEventEmitter);
+
+  {
+    RCTNetworking = new RCTNetworking();
+  }
+  module.exports = RCTNetworking;
+});

@@ -1,0 +1,283 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var _react2 = babelHelpers.interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var _header = _require(_dependencyMap[2]);
+
+  var _header2 = babelHelpers.interopRequireDefault(_header);
+
+  var _footer = _require(_dependencyMap[3]);
+
+  var _footer2 = babelHelpers.interopRequireDefault(_footer);
+
+  var _row = _require(_dependencyMap[4]);
+
+  var _row2 = babelHelpers.interopRequireDefault(_row);
+
+  var filterItems = function filterItems(filter, items) {
+    return items.filter(function (item) {
+      if (filter == "ALL") return true;
+      if (filter == "COMPLETED") return item.complete;
+      if (filter == "ACTIVE") return !item.complete;
+    });
+  };
+
+  var App = function (_React$Component) {
+    babelHelpers.inherits(App, _React$Component);
+
+    function App(props) {
+      babelHelpers.classCallCheck(this, App);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+      _this.componentWillMount = function () {
+        _reactNative.AsyncStorage.getItem("items").then(function (json) {
+          try {
+            var items = JSON.parse(json);
+
+            _this.setSource(items, items, {
+              loading: false
+            });
+          } catch (e) {
+            _this.setState({
+              loading: false
+            });
+          }
+        });
+      };
+
+      var ds = new _reactNative.ListView.DataSource({
+        rowHasChanged: function rowHasChanged(r1, r2) {
+          return r1 != r2;
+        }
+      });
+      _this.state = {
+        loading: true,
+        allComplete: false,
+        value: "",
+        filter: "ALL",
+        items: [],
+        dataSource: ds.cloneWithRows([])
+      };
+      _this.handleUpdateText = _this.handleUpdateText.bind(_this);
+      _this.handleToggleEditing = _this.handleToggleEditing.bind(_this);
+      _this.handleClearComplete = _this.handleClearComplete.bind(_this);
+      _this.handleFilter = _this.handleFilter.bind(_this);
+      _this.handleAddItem = _this.handleAddItem.bind(_this);
+      _this.handleToggleAllComplete = _this.handleToggleAllComplete.bind(_this);
+      _this.setSource = _this.setSource.bind(_this);
+      _this.handleToggleComplete = _this.handleToggleComplete.bind(_this);
+      _this.handleRemoveItem = _this.handleRemoveItem.bind(_this);
+      return _this;
+    }
+
+    babelHelpers.createClass(App, [{
+      key: "handleUpdateText",
+      value: function handleUpdateText(key, text) {
+        var newItems = this.state.items.map(function (item) {
+          if (item.key != key) return item;
+          return babelHelpers.extends({}, item, {
+            text: text
+          });
+        });
+        this.setSource(newItems, filterItems(this.state.filter, newItems));
+      }
+    }, {
+      key: "handleToggleEditing",
+      value: function handleToggleEditing(key, editing) {
+        var newItems = this.state.items.map(function (item) {
+          if (item.key != key) return item;
+          return babelHelpers.extends({}, item, {
+            editing: editing
+          });
+        });
+        this.setSource(newItems, filterItems(this.state.filter, newItems));
+      }
+    }, {
+      key: "setSource",
+      value: function setSource(items, itemDatasource) {
+        var otherState = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        this.setState(babelHelpers.extends({
+          items: items,
+          dataSource: this.state.dataSource.cloneWithRows(itemDatasource)
+        }, otherState));
+
+        _reactNative.AsyncStorage.setItem("items", JSON.stringify(items));
+      }
+    }, {
+      key: "handleClearComplete",
+      value: function handleClearComplete() {
+        var newItems = filterItems("ACTIVE", this.state.items);
+        this.setSource(newItems, filterItems(this.state.filter, newItems));
+      }
+    }, {
+      key: "handleFilter",
+      value: function handleFilter(filter) {
+        this.setSource(this.state.items, filterItems(filter, this.state.items), {
+          filter: filter
+        });
+      }
+    }, {
+      key: "handleRemoveItem",
+      value: function handleRemoveItem(key) {
+        var newItems = this.state.items.filter(function (item) {
+          return item.key != key;
+        });
+        this.setSource(newItems, filterItems(this.state.filter, newItems));
+      }
+    }, {
+      key: "handleToggleComplete",
+      value: function handleToggleComplete(key, complete) {
+        var newItems = this.state.items.map(function (item) {
+          if (item.key != key) return item;
+          return babelHelpers.extends({}, item, {
+            complete: complete
+          });
+        });
+        this.setSource(newItems, filterItems(this.state.filter, newItems));
+      }
+    }, {
+      key: "handleToggleAllComplete",
+      value: function handleToggleAllComplete() {
+        var complete = !this.state.allComplete;
+        var newItems = this.state.items.map(function (item) {
+          return babelHelpers.extends({}, item, {
+            complete: complete
+          });
+        });
+        this.setSource(newItems, filterItems(this.state.filter, newItems), {
+          allComplete: complete
+        });
+      }
+    }, {
+      key: "handleAddItem",
+      value: function handleAddItem() {
+        if (!this.state.value) return;
+        var newItems = [].concat(babelHelpers.toConsumableArray(this.state.items), [{
+          key: Date.now(),
+          text: this.state.value,
+          complete: false
+        }]);
+        this.setSource(newItems, filterItems(this.state.filter, newItems), {
+          value: ""
+        });
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        var _this2 = this;
+
+        return _react2.default.createElement(
+          _reactNative.View,
+          {
+            style: styles.container
+          },
+          _react2.default.createElement(_header2.default, {
+            value: this.state.value,
+            onAddItem: this.handleAddItem,
+            onChange: function onChange(value) {
+              return _this2.setState({
+                value: value
+              });
+            },
+            onToggleAllComplete: this.handleToggleAllComplete
+          }),
+          _react2.default.createElement(
+            _reactNative.View,
+            {
+              style: styles.content
+            },
+            _react2.default.createElement(_reactNative.ListView, {
+              style: styles.list,
+              enableEmptySections: true,
+              dataSource: this.state.dataSource,
+              onScroll: function onScroll() {
+                return _reactNative.Keyboard.dismiss();
+              },
+              renderRow: function renderRow(_ref) {
+                var key = _ref.key,
+                    value = babelHelpers.objectWithoutProperties(_ref, ["key"]);
+                return _react2.default.createElement(_row2.default, babelHelpers.extends({
+                  key: key,
+                  onUpdate: function onUpdate(text) {
+                    return _this2.handleUpdateText(key, text);
+                  },
+                  onToggleEdit: function onToggleEdit(editing) {
+                    return _this2.handleToggleEditing(key, editing);
+                  },
+                  onRemove: function onRemove() {
+                    return _this2.handleRemoveItem(key);
+                  },
+                  key: key,
+                  onComplete: function onComplete(complete) {
+                    return _this2.handleToggleComplete(key, complete);
+                  }
+                }, value));
+              },
+              renderSeparator: function renderSeparator(sectionId, rowId) {
+                return _react2.default.createElement(_reactNative.View, {
+                  key: rowId,
+                  style: _reactNative.StyleSheet.separator
+                });
+              }
+            })
+          ),
+          _react2.default.createElement(_footer2.default, {
+            count: filterItems("ACTIVE", this.state.items).length,
+            onFilter: this.handleFilter,
+            filter: this.state.filter,
+            onClearComplete: this.handleClearComplete
+          }),
+          this.state.loading && _react2.default.createElement(
+            _reactNative.View,
+            {
+              style: styles.loading
+            },
+            _react2.default.createElement(_reactNative.ActivityIndicator, {
+              animating: true,
+              size: "large"
+            })
+          )
+        );
+      }
+    }]);
+    return App;
+  }(_react2.default.Component);
+
+  exports.default = App;
+
+  var styles = _reactNative.StyleSheet.create({
+    container: babelHelpers.extends({
+      flex: 1,
+      backgroundColor: '#f5f5f5'
+    }, undefined),
+    content: {
+      flex: 1
+    },
+    list: {
+      backgroundColor: '#fff'
+    },
+    separator: {
+      borderWidth: 1,
+      borderColor: '#f5f5f5'
+    },
+    loading: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: "rgba(0,0,0,.3)"
+    }
+  });
+});

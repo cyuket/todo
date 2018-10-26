@@ -1,0 +1,14 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _expoCore = _require(_dependencyMap[0]);
+
+  var _ThreeAxisSensor = _require(_dependencyMap[1]);
+
+  var _ThreeAxisSensor2 = babelHelpers.interopRequireDefault(_ThreeAxisSensor);
+
+  var ExponentAccelerometer = _expoCore.NativeModulesProxy.ExponentAccelerometer;
+  exports.default = new _ThreeAxisSensor2.default(ExponentAccelerometer, 'accelerometerDidUpdate');
+});

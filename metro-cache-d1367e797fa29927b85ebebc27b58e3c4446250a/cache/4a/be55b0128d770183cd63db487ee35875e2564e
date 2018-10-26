@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var fbemitter = {
+    EventEmitter: _require(_dependencyMap[0]),
+    EmitterSubscription: _require(_dependencyMap[1])
+  };
+  module.exports = fbemitter;
+});

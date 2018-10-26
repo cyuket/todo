@@ -1,0 +1,76 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.default = undefined;
+
+    var _react = _require(_dependencyMap[0]);
+
+    var _react2 = babelHelpers.interopRequireDefault(_react);
+
+    var _reactNative = _require(_dependencyMap[1]);
+
+    var Header = function (_Component) {
+        babelHelpers.inherits(Header, _Component);
+
+        function Header() {
+            babelHelpers.classCallCheck(this, Header);
+            return babelHelpers.possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
+        }
+
+        babelHelpers.createClass(Header, [{
+            key: "render",
+            value: function render() {
+                return _react2.default.createElement(
+                    _reactNative.View,
+                    {
+                        style: styles.header
+                    },
+                    _react2.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                            onPress: this.props.onToggleAllComplete
+                        },
+                        _react2.default.createElement(
+                            _reactNative.Text,
+                            {
+                                style: styles.toggleIcon
+                            },
+                            String.fromCharCode(10003)
+                        )
+                    ),
+                    _react2.default.createElement(_reactNative.TextInput, {
+                        value: this.props.value,
+                        onChangeText: this.props.onChange,
+                        onSubmitEditing: this.props.onAddItem,
+                        placeholder: "What Needs to be Done",
+                        blurOnSubmit: false,
+                        style: styles.input,
+                        returnKeyType: "done"
+                    })
+                );
+            }
+        }]);
+        return Header;
+    }(_react.Component);
+
+    exports.default = Header;
+
+    var styles = _reactNative.StyleSheet.create({
+        header: {
+            paddingHorizontal: 16,
+            flexDirection: "row",
+            justifyContent: "space-around",
+            alignItems: "center"
+        },
+        toggleIcon: {
+            fontSize: 30,
+            color: "#ccc"
+        },
+        input: {
+            flex: 1,
+            height: 50,
+            marginLeft: 16
+        }
+    });
+});

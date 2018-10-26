@@ -1,0 +1,7 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var baseSetToString = _require(_dependencyMap[0]),
+      shortOut = _require(_dependencyMap[1]);
+
+  var setToString = shortOut(baseSetToString);
+  module.exports = setToString;
+});

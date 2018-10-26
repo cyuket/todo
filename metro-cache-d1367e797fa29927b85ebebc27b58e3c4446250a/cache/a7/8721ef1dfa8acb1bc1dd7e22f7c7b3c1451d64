@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var arrayLikeKeys = _require(_dependencyMap[0]),
+      baseKeysIn = _require(_dependencyMap[1]),
+      isArrayLike = _require(_dependencyMap[2]);
+
+  function keysIn(object) {
+    return isArrayLike(object) ? arrayLikeKeys(object, true) : baseKeysIn(object);
+  }
+
+  module.exports = keysIn;
+});

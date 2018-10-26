@@ -1,0 +1,50 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var _react2 = babelHelpers.interopRequireDefault(_react);
+
+  var _SplashScreen = _require(_dependencyMap[1]);
+
+  var SplashScreen = babelHelpers.interopRequireWildcard(_SplashScreen);
+
+  var AppLoading = function (_React$Component) {
+    babelHelpers.inherits(AppLoading, _React$Component);
+
+    function AppLoading(props) {
+      babelHelpers.classCallCheck(this, AppLoading);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AppLoading.__proto__ || Object.getPrototypeOf(AppLoading)).call(this, props));
+
+      SplashScreen.preventAutoHide();
+      return _this;
+    }
+
+    babelHelpers.createClass(AppLoading, [{
+      key: "componentWillUnmount",
+      value: function componentWillUnmount() {
+        if (this.props.autoHideSplash === undefined || this.props.autoHideSplash) {
+          if (global.__E2E__) {
+            SplashScreen.hide();
+          } else {
+            setTimeout(function () {
+              SplashScreen.hide();
+            }, 200);
+          }
+        }
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        return null;
+      }
+    }]);
+    return AppLoading;
+  }(_react2.default.Component);
+
+  exports.default = AppLoading;
+});

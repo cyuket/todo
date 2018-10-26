@@ -1,0 +1,13 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var Promise = _require(_dependencyMap[0]);
+
+  _require(_dependencyMap[1]);
+
+  Promise.prototype['finally'] = function (onSettled) {
+    return this.then(onSettled, onSettled);
+  };
+
+  module.exports = Promise;
+});

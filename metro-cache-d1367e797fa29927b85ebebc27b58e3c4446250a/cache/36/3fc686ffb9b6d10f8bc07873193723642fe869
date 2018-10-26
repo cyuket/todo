@@ -1,0 +1,125 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.default = undefined;
+
+    var _react = _require(_dependencyMap[0]);
+
+    var _react2 = babelHelpers.interopRequireDefault(_react);
+
+    var _reactNative = _require(_dependencyMap[1]);
+
+    var Footer = function (_Component) {
+        babelHelpers.inherits(Footer, _Component);
+
+        function Footer() {
+            babelHelpers.classCallCheck(this, Footer);
+            return babelHelpers.possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).apply(this, arguments));
+        }
+
+        babelHelpers.createClass(Footer, [{
+            key: "render",
+            value: function render() {
+                var _this2 = this;
+
+                var filter = this.props.filter;
+                return _react2.default.createElement(
+                    _reactNative.View,
+                    {
+                        style: styles.container
+                    },
+                    _react2.default.createElement(
+                        _reactNative.Text,
+                        null,
+                        this.props.count,
+                        " Items "
+                    ),
+                    _react2.default.createElement(
+                        _reactNative.View,
+                        {
+                            style: styles.filters
+                        },
+                        _react2.default.createElement(
+                            _reactNative.TouchableOpacity,
+                            {
+                                style: [styles.filter, filter == "ALL" && styles.selected],
+                                onPress: function onPress() {
+                                    return _this2.props.onFilter("ALL");
+                                }
+                            },
+                            _react2.default.createElement(
+                                _reactNative.Text,
+                                null,
+                                "All"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactNative.TouchableOpacity,
+                            {
+                                style: [styles.filter, filter == "ACTIVE" && styles.selected],
+                                onPress: function onPress() {
+                                    return _this2.props.onFilter("ACTIVE");
+                                }
+                            },
+                            _react2.default.createElement(
+                                _reactNative.Text,
+                                null,
+                                "Active"
+                            )
+                        ),
+                        _react2.default.createElement(
+                            _reactNative.TouchableOpacity,
+                            {
+                                style: [styles.filter, filter == "COMPLETED" && styles.selected],
+                                onPress: function onPress() {
+                                    return _this2.props.onFilter("COMPLETED");
+                                }
+                            },
+                            _react2.default.createElement(
+                                _reactNative.Text,
+                                null,
+                                "Completed"
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        _reactNative.TouchableOpacity,
+                        {
+                            onPress: this.props.onClearComplete
+                        },
+                        _react2.default.createElement(
+                            _reactNative.Text,
+                            null,
+                            "Clear"
+                        )
+                    )
+                );
+            }
+        }]);
+        return Footer;
+    }(_react.Component);
+
+    exports.default = Footer;
+
+    var styles = _reactNative.StyleSheet.create({
+        container: {
+            padding: 16,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between"
+        },
+        filters: {
+            flexDirection: "row"
+        },
+        filter: {
+            padding: 8,
+            borderRadius: 5,
+            borderWidth: 2,
+            borderColor: "transparent"
+        },
+        selected: {
+            borderColor: "rgba(175,47,47, .2)"
+        }
+    });
+});

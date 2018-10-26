@@ -1,0 +1,134 @@
+(function (global) {
+  'use strict';
+
+  function _toConsumableArray(arr) {
+    if (Array.isArray(arr)) {
+      for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+        arr2[i] = arr[i];
+      }
+
+      return arr2;
+    } else {
+      return Array.from(arr);
+    }
+  }
+
+  global.require = _require;
+  global.__d = define;
+  var modules = Object.create(null);
+
+  function define(factory, moduleId, dependencyMap) {
+    if (moduleId in modules) {
+      return;
+    }
+
+    modules[moduleId] = {
+      dependencyMap: dependencyMap,
+      exports: undefined,
+      factory: factory,
+      hasError: false,
+      isInitialized: false
+    };
+  }
+
+  function _require(moduleId) {
+    var moduleIdReallyIsNumber = moduleId;
+    var module = modules[moduleIdReallyIsNumber];
+    return module && module.isInitialized ? module.exports : guardedLoadModule(moduleIdReallyIsNumber, module);
+  }
+
+  var inGuard = false;
+
+  function guardedLoadModule(moduleId, module) {
+    if (!inGuard && global.ErrorUtils) {
+      inGuard = true;
+      var returnValue = void 0;
+
+      try {
+        returnValue = loadModuleImplementation(moduleId, module);
+      } catch (e) {
+        global.ErrorUtils.reportFatalError(e);
+      }
+
+      inGuard = false;
+      return returnValue;
+    } else {
+      return loadModuleImplementation(moduleId, module);
+    }
+  }
+
+  var ID_MASK_SHIFT = 16;
+  var LOCAL_ID_MASK = ~0 >>> ID_MASK_SHIFT;
+
+  function unpackModuleId(moduleId) {
+    var segmentId = moduleId >>> ID_MASK_SHIFT;
+    var localId = moduleId & LOCAL_ID_MASK;
+    return {
+      segmentId: segmentId,
+      localId: localId
+    };
+  }
+
+  _require.unpackModuleId = unpackModuleId;
+
+  function packModuleId(value) {
+    return value.segmentId << ID_MASK_SHIFT + value.localId;
+  }
+
+  _require.packModuleId = packModuleId;
+
+  function loadModuleImplementation(moduleId, module) {
+    var nativeRequire = global.nativeRequire;
+
+    if (!module && nativeRequire) {
+      var _unpackModuleId = unpackModuleId(moduleId);
+
+      var segmentId = _unpackModuleId.segmentId,
+          localId = _unpackModuleId.localId;
+      nativeRequire(localId, segmentId);
+      module = modules[moduleId];
+    }
+
+    if (!module) {
+      throw unknownModuleError(moduleId);
+    }
+
+    if (module.hasError) {
+      throw moduleThrewError(moduleId, module.error);
+    }
+
+    module.isInitialized = true;
+    var exports = module.exports = {};
+    var _module = module;
+    var factory = _module.factory,
+        dependencyMap = _module.dependencyMap;
+
+    try {
+      var moduleObject = {
+        exports: exports
+      };
+      factory(global, _require, moduleObject, exports, dependencyMap);
+      {
+        module.factory = undefined;
+        module.dependencyMap = undefined;
+      }
+      return module.exports = moduleObject.exports;
+    } catch (e) {
+      module.hasError = true;
+      module.error = e;
+      module.isInitialized = false;
+      module.exports = undefined;
+      throw e;
+    }
+  }
+
+  function unknownModuleError(id) {
+    var message = 'Requiring unknown module "' + id + '".';
+    return Error(message);
+  }
+
+  function moduleThrewError(id, error) {
+    var displayName = id;
+    return Error('Requiring module "' + displayName + '", which threw an exception: ' + error);
+  }
+})(this);

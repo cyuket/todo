@@ -1,0 +1,54 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    get Lottie() {
+      return _require(_dependencyMap[0]);
+    },
+
+    get Branch() {
+      return _require(_dependencyMap[1]).default;
+    },
+
+    get GestureHandler() {
+      console.warn('GestureHandler is no longer in DangerZone, you can now import it directly from the expo package.');
+      return _require(_dependencyMap[2]);
+    },
+
+    get Localization() {
+      return _require(_dependencyMap[3]).default;
+    },
+
+    get Stripe() {
+      return _require(_dependencyMap[4]).PaymentsStripe;
+    },
+
+    get Print() {
+      console.warn('Print is no longer in DangerZone, you can now import it directly from the expo package.');
+      return _require(_dependencyMap[5]).Print;
+    },
+
+    get DeviceMotion() {
+      return _require(_dependencyMap[6]).DeviceMotion;
+    },
+
+    get Animated() {
+      return _require(_dependencyMap[7]).default;
+    },
+
+    get Easing() {
+      return _require(_dependencyMap[7]).Easing;
+    },
+
+    get Screen() {
+      return _require(_dependencyMap[8]).Screen;
+    },
+
+    get ScreenContainer() {
+      return _require(_dependencyMap[8]).ScreenContainer;
+    },
+
+    get ScreenStack() {
+      return _require(_dependencyMap[8]).ScreenStack;
+    }
+
+  };
+});

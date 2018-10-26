@@ -1,0 +1,97 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.createOrReuseTransformNode = createOrReuseTransformNode;
+
+  var _AnimatedNode2 = _require(_dependencyMap[0]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var _areEqual = _require(_dependencyMap[1]);
+
+  var _areEqual2 = babelHelpers.interopRequireDefault(_areEqual);
+
+  function sanitizeTransform(inputTransform) {
+    var outputTransform = [];
+    inputTransform.forEach(function (transform) {
+      for (var key in transform) {
+        var value = transform[key];
+
+        if (value instanceof _AnimatedNode3.default) {
+          outputTransform.push({
+            property: key,
+            nodeID: value.__nodeID
+          });
+        } else {
+          outputTransform.push({
+            property: key,
+            value: value
+          });
+        }
+      }
+    });
+    return outputTransform;
+  }
+
+  function extractAnimatedParentNodes(transform) {
+    var parents = [];
+    transform.forEach(function (transform) {
+      for (var key in transform) {
+        var value = transform[key];
+
+        if (value instanceof _AnimatedNode3.default) {
+          parents.push(value);
+        }
+      }
+    });
+    return parents;
+  }
+
+  function createOrReuseTransformNode(transform, oldNode) {
+    var config = sanitizeTransform(transform);
+
+    if (oldNode && (0, _areEqual2.default)(config, oldNode._config)) {
+      return oldNode;
+    }
+
+    return new AnimatedTransform(transform, config);
+  }
+
+  var AnimatedTransform = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedTransform, _AnimatedNode);
+
+    function AnimatedTransform(transform, config) {
+      babelHelpers.classCallCheck(this, AnimatedTransform);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedTransform.__proto__ || Object.getPrototypeOf(AnimatedTransform)).call(this, {
+        type: 'transform',
+        transform: config
+      }, extractAnimatedParentNodes(transform)));
+
+      _this._config = config;
+      _this._transform = transform;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedTransform, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        return this._transform.map(function (transform) {
+          var result = {};
+
+          for (var key in transform) {
+            var value = transform[key];
+
+            if (value instanceof _AnimatedNode3.default) {
+              result[key] = value.__getValue();
+            }
+          }
+
+          return result;
+        });
+      }
+    }]);
+    return AnimatedTransform;
+  }(_AnimatedNode3.default);
+});

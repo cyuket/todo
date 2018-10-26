@@ -1,0 +1,142 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _AnimatedNode2 = _require(_dependencyMap[0]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var _utils = _require(_dependencyMap[1]);
+
+  var _invariant = _require(_dependencyMap[2]);
+
+  var _invariant2 = babelHelpers.interopRequireDefault(_invariant);
+
+  function reduce(fn) {
+    return function (input) {
+      return input.reduce(function (a, b) {
+        return fn((0, _utils.val)(a), (0, _utils.val)(b));
+      });
+    };
+  }
+
+  function reduceFrom(fn, initialValue) {
+    return function (input) {
+      return input.reduce(function (a, b) {
+        return fn((0, _utils.val)(a), (0, _utils.val)(b));
+      }, initialValue);
+    };
+  }
+
+  function infix(fn) {
+    return function (input) {
+      return fn((0, _utils.val)(input[0]), (0, _utils.val)(input[1]));
+    };
+  }
+
+  function single(fn) {
+    return function (input) {
+      return fn((0, _utils.val)(input[0]));
+    };
+  }
+
+  var OPERATIONS = {
+    add: reduce(function (a, b) {
+      return a + b;
+    }),
+    sub: reduce(function (a, b) {
+      return a - b;
+    }),
+    multiply: reduce(function (a, b) {
+      return a * b;
+    }),
+    divide: reduce(function (a, b) {
+      return a / b;
+    }),
+    pow: reduce(function (a, b) {
+      return Math.pow(a, b);
+    }),
+    modulo: reduce(function (a, b) {
+      return (a % b + b) % b;
+    }),
+    sqrt: single(function (a) {
+      return Math.sqrt(a);
+    }),
+    sin: single(function (a) {
+      return Math.sin(a);
+    }),
+    cos: single(function (a) {
+      return Math.cos(a);
+    }),
+    exp: single(function (a) {
+      return Math.exp(a);
+    }),
+    and: reduceFrom(function (a, b) {
+      return a && b;
+    }, true),
+    or: reduceFrom(function (a, b) {
+      return a || b;
+    }, false),
+    not: single(function (a) {
+      return !a;
+    }),
+    defined: single(function (a) {
+      return a !== null && a !== undefined && !isNaN(a);
+    }),
+    lessThan: infix(function (a, b) {
+      return a < b;
+    }),
+    eq: infix(function (a, b) {
+      return a == b;
+    }),
+    greaterThan: infix(function (a, b) {
+      return a > b;
+    }),
+    lessOrEq: infix(function (a, b) {
+      return a <= b;
+    }),
+    greaterOrEq: infix(function (a, b) {
+      return a >= b;
+    }),
+    neq: infix(function (a, b) {
+      return a != b;
+    })
+  };
+
+  var AnimatedOperator = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedOperator, _AnimatedNode);
+
+    function AnimatedOperator(operator, input) {
+      babelHelpers.classCallCheck(this, AnimatedOperator);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedOperator.__proto__ || Object.getPrototypeOf(AnimatedOperator)).call(this, {
+        type: 'op',
+        op: operator,
+        input: input.map(function (n) {
+          return n.__nodeID;
+        })
+      }, input));
+
+      _this._op = operator;
+      _this._input = input;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedOperator, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        if (!this._operation) {
+          this._operation = OPERATIONS[this._op];
+          (0, _invariant2.default)(this._operation, "Illegal operator '%s'", this._op);
+        }
+
+        return this._operation(this._input);
+      }
+    }]);
+    return AnimatedOperator;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedOperator;
+});

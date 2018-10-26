@@ -1,0 +1,50 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _expoCore = _require(_dependencyMap[0]);
+
+  var DeviceSensor = function () {
+    function DeviceSensor(nativeSensorModule, nativeEventName) {
+      babelHelpers.classCallCheck(this, DeviceSensor);
+      this._nativeModule = nativeSensorModule;
+      this._nativeEmitter = new _expoCore.EventEmitter(nativeSensorModule);
+      this._nativeEventName = nativeEventName;
+    }
+
+    babelHelpers.createClass(DeviceSensor, [{
+      key: "addListener",
+      value: function addListener(listener) {
+        var _this = this;
+
+        var subscription = this._nativeEmitter.addListener(this._nativeEventName, listener);
+
+        subscription.remove = function () {
+          return _this.removeSubscription(subscription);
+        };
+
+        return subscription;
+      }
+    }, {
+      key: "removeAllListeners",
+      value: function removeAllListeners() {
+        this._nativeEmitter.removeAllListeners(this._nativeEventName);
+      }
+    }, {
+      key: "removeSubscription",
+      value: function removeSubscription(subscription) {
+        this._nativeEmitter.removeSubscription(subscription);
+      }
+    }, {
+      key: "setUpdateInterval",
+      value: function setUpdateInterval(intervalMs) {
+        this._nativeModule.setUpdateInterval(intervalMs);
+      }
+    }]);
+    return DeviceSensor;
+  }();
+
+  exports.default = DeviceSensor;
+});

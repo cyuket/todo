@@ -1,0 +1,41 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.default = undefined;
+
+    var _class, _temp;
+
+    var _react = _require(_dependencyMap[0]);
+
+    var _propTypes = _require(_dependencyMap[1]);
+
+    var _propTypes2 = babelHelpers.interopRequireDefault(_propTypes);
+
+    var _props = _require(_dependencyMap[2]);
+
+    var _default = (_temp = _class = function (_Component) {
+        babelHelpers.inherits(_default, _Component);
+
+        function _default() {
+            babelHelpers.classCallCheck(this, _default);
+            return babelHelpers.possibleConstructorReturn(this, (_default.__proto__ || Object.getPrototypeOf(_default)).apply(this, arguments));
+        }
+
+        babelHelpers.createClass(_default, [{
+            key: "render",
+            value: function render() {
+                return null;
+            }
+        }]);
+        return _default;
+    }(_react.Component), _class.displayName = 'Stop', _class.propTypes = {
+        stopColor: _propTypes2.default.string,
+        stopOpacity: _props.numberProp
+    }, _class.defaultProps = {
+        stopColor: '#000',
+        stopOpacity: 1
+    }, _temp);
+
+    exports.default = _default;
+});

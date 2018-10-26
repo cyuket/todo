@@ -1,0 +1,70 @@
+__d(function (global, _require2, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _class, _temp2;
+
+  var Platform = _require2(_dependencyMap[0]);
+
+  var React = _require2(_dependencyMap[1]);
+
+  var ReactNative = _require2(_dependencyMap[2]);
+
+  var ReactNativeStyleAttributes = _require2(_dependencyMap[3]);
+
+  var ReactNativeViewAttributes = _require2(_dependencyMap[4]);
+
+  var ViewPropTypes = _require2(_dependencyMap[5]);
+
+  var _require = _require2(_dependencyMap[6]),
+      ViewContextTypes = _require.ViewContextTypes;
+
+  var invariant = _require2(_dependencyMap[7]);
+
+  var requireNativeComponent = _require2(_dependencyMap[8]);
+
+  var View = (_temp2 = _class = function (_ReactNative$NativeCo) {
+    babelHelpers.inherits(View, _ReactNative$NativeCo);
+
+    function View() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, View);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = View.__proto__ || Object.getPrototypeOf(View)).call.apply(_ref, [this].concat(args))), _this), _this.viewConfig = {
+        uiViewClassName: 'RCTView',
+        validAttributes: ReactNativeViewAttributes.RCTView
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(View, [{
+      key: "getChildContext",
+      value: function getChildContext() {
+        return {
+          isInAParentText: false
+        };
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        invariant(!(this.context.isInAParentText && true), 'Nesting of <View> within <Text> is not supported on Android.');
+        return React.createElement(RCTView, this.props);
+      }
+    }]);
+    return View;
+  }(ReactNative.NativeComponent), _class.propTypes = ViewPropTypes, _class.childContextTypes = ViewContextTypes, _temp2);
+  var RCTView = requireNativeComponent('RCTView', View, {
+    nativeOnly: {
+      nativeBackgroundAndroid: true,
+      nativeForegroundAndroid: true
+    }
+  });
+  var ViewToExport = RCTView;
+  ViewToExport = View;
+  module.exports = ViewToExport;
+});

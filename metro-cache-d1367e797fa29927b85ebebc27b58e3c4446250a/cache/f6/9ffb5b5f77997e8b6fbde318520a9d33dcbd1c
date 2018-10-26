@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    var baseCreate = _require(_dependencyMap[0]),
+        getPrototype = _require(_dependencyMap[1]),
+        isPrototype = _require(_dependencyMap[2]);
+
+    function initCloneObject(object) {
+        return typeof object.constructor == 'function' && !isPrototype(object) ? baseCreate(getPrototype(object)) : {};
+    }
+
+    module.exports = initCloneObject;
+});

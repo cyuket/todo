@@ -1,0 +1,22 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var Animation = function () {
+    function Animation() {
+      babelHelpers.classCallCheck(this, Animation);
+    }
+
+    babelHelpers.createClass(Animation, [{
+      key: "start",
+      value: function start(fromValue, onUpdate, onEnd, previousAnimation, animatedValue) {}
+    }, {
+      key: "stop",
+      value: function stop() {}
+    }]);
+    return Animation;
+  }();
+
+  exports.default = Animation;
+});

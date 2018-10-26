@@ -1,0 +1,83 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = exports.NativeMediaView = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var React = babelHelpers.interopRequireWildcard(_react);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var _withNativeAd = _require(_dependencyMap[2]);
+
+  var NativeMediaView = exports.NativeMediaView = (0, _reactNative.requireNativeComponent)('MediaView', null, {});
+
+  var MediaViewChild = function (_React$Component) {
+    babelHelpers.inherits(MediaViewChild, _React$Component);
+
+    function MediaViewChild() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, MediaViewChild);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = MediaViewChild.__proto__ || Object.getPrototypeOf(MediaViewChild)).call.apply(_ref, [this].concat(args))), _this), _this._handleMediaViewMount = function (ref) {
+        if (_this._mediaView) {
+          _this.props.unregister(_this._mediaView);
+
+          _this._mediaView = null;
+        }
+
+        if (ref) {
+          _this.props.register(ref);
+
+          _this._mediaView = ref;
+        }
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(MediaViewChild, [{
+      key: "render",
+      value: function render() {
+        return React.createElement(NativeMediaView, babelHelpers.extends({}, this.props, {
+          ref: this._handleMediaViewMount
+        }));
+      }
+    }]);
+    return MediaViewChild;
+  }(React.Component);
+
+  var MediaView = function (_React$Component2) {
+    babelHelpers.inherits(MediaView, _React$Component2);
+
+    function MediaView() {
+      babelHelpers.classCallCheck(this, MediaView);
+      return babelHelpers.possibleConstructorReturn(this, (MediaView.__proto__ || Object.getPrototypeOf(MediaView)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(MediaView, [{
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        return React.createElement(
+          _withNativeAd.MediaViewContext.Consumer,
+          null,
+          function (contextValue) {
+            return React.createElement(MediaViewChild, babelHelpers.extends({}, _this3.props, contextValue));
+          }
+        );
+      }
+    }]);
+    return MediaView;
+  }(React.Component);
+
+  exports.default = MediaView;
+});

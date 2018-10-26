@@ -1,0 +1,150 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+    exports.default = undefined;
+
+    var _react = _require(_dependencyMap[0]);
+
+    var _react2 = babelHelpers.interopRequireDefault(_react);
+
+    var _reactNative = _require(_dependencyMap[1]);
+
+    var Row = function (_Component) {
+        babelHelpers.inherits(Row, _Component);
+
+        function Row() {
+            babelHelpers.classCallCheck(this, Row);
+            return babelHelpers.possibleConstructorReturn(this, (Row.__proto__ || Object.getPrototypeOf(Row)).apply(this, arguments));
+        }
+
+        babelHelpers.createClass(Row, [{
+            key: "render",
+            value: function render() {
+                var _this2 = this;
+
+                var complete = this.props.complete;
+
+                var textComponent = _react2.default.createElement(
+                    _reactNative.TouchableOpacity,
+                    {
+                        style: styles.textWrap,
+                        onLongPress: function onLongPress() {
+                            return _this2.props.onToggleEdit(true);
+                        }
+                    },
+                    _react2.default.createElement(
+                        _reactNative.Text,
+                        {
+                            style: [styles.text, complete && styles.complete]
+                        },
+                        this.props.text,
+                        " "
+                    )
+                );
+
+                var removeButton = _react2.default.createElement(
+                    _reactNative.TouchableOpacity,
+                    {
+                        onPress: this.props.onRemove
+                    },
+                    _react2.default.createElement(
+                        _reactNative.Text,
+                        {
+                            style: styles.destory
+                        },
+                        "X"
+                    )
+                );
+
+                var edittingComponent = _react2.default.createElement(
+                    _reactNative.View,
+                    {
+                        style: styles.textWrap
+                    },
+                    _react2.default.createElement(_reactNative.TextInput, {
+                        onChangeText: this.props.onUpdate,
+                        autoFocus: true,
+                        value: this.props.text,
+                        style: styles.input,
+                        multiline: true
+                    })
+                );
+
+                var doneButton = _react2.default.createElement(
+                    _reactNative.TouchableOpacity,
+                    {
+                        style: styles.done,
+                        onPress: function onPress() {
+                            return _this2.props.onToggleEdit(false);
+                        }
+                    },
+                    _react2.default.createElement(
+                        _reactNative.Text,
+                        {
+                            style: styles.doneText
+                        },
+                        "Save"
+                    )
+                );
+
+                return _react2.default.createElement(
+                    _reactNative.View,
+                    {
+                        style: styles.container
+                    },
+                    _react2.default.createElement(_reactNative.Switch, {
+                        value: complete,
+                        onValueChange: this.props.onComplete
+                    }),
+                    this.props.editing ? edittingComponent : textComponent,
+                    this.props.editing ? doneButton : removeButton
+                );
+            }
+        }]);
+        return Row;
+    }(_react.Component);
+
+    exports.default = Row;
+
+    var styles = _reactNative.StyleSheet.create({
+        container: {
+            padding: 10,
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between"
+        },
+        textWrap: {
+            flex: 1,
+            marginHorizontal: 10
+        },
+        complete: {
+            textDecorationLine: "line-through"
+        },
+        destory: {
+            fontSize: 30,
+            color: "#cc9a9a"
+        },
+        text: {
+            fontSize: 24,
+            color: "#4d4d4d"
+        },
+        input: {
+            height: 100,
+            flex: 1,
+            fontSize: 24,
+            padding: 0,
+            color: "#4d4d4d"
+        },
+        done: {
+            borderRadius: 5,
+            borderWidth: 2,
+            borderColor: "#7be290",
+            padding: 7
+        },
+        doneText: {
+            color: "#4d4d4d",
+            fontSize: 20
+        }
+    });
+});

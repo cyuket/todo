@@ -1,0 +1,40 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ImpactStyles = exports.NotificationTypes = undefined;
+  exports.notification = notification;
+  exports.impact = impact;
+  exports.selection = selection;
+
+  var _reactNative = _require(_dependencyMap[0]);
+
+  var NotificationTypes = exports.NotificationTypes = {
+    Success: 'success',
+    Warning: 'warning',
+    Error: 'error'
+  };
+  var ImpactStyles = exports.ImpactStyles = {
+    Light: 'light',
+    Medium: 'medium',
+    Heavy: 'heavy'
+  };
+
+  function notification(type) {
+    {
+      _reactNative.NativeModules.ExponentHaptic.notification(type || 'success');
+    }
+  }
+
+  function impact(style) {
+    {
+      _reactNative.NativeModules.ExponentHaptic.impact(style || 'medium');
+    }
+  }
+
+  function selection() {
+    {
+      _reactNative.NativeModules.ExponentHaptic.selection();
+    }
+  }
+});

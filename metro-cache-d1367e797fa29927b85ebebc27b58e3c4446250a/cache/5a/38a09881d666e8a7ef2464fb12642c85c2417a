@@ -1,0 +1,55 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _class, _temp;
+
+  var _propTypes = _require(_dependencyMap[0]);
+
+  var _propTypes2 = babelHelpers.interopRequireDefault(_propTypes);
+
+  var _react = _require(_dependencyMap[1]);
+
+  var React = babelHelpers.interopRequireWildcard(_react);
+
+  var _reactNative = _require(_dependencyMap[2]);
+
+  var BlurView = (_temp = _class = function (_React$Component) {
+    babelHelpers.inherits(BlurView, _React$Component);
+
+    function BlurView() {
+      babelHelpers.classCallCheck(this, BlurView);
+      return babelHelpers.possibleConstructorReturn(this, (BlurView.__proto__ || Object.getPrototypeOf(BlurView)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(BlurView, [{
+      key: "render",
+      value: function render() {
+        var _props = this.props,
+            tint = _props.tint,
+            props = babelHelpers.objectWithoutProperties(_props, ["tint"]);
+        var backgroundColor = void 0;
+
+        if (tint === 'dark') {
+          backgroundColor = 'rgba(0,0,0,0.5)';
+        } else if (tint === 'light') {
+          backgroundColor = 'rgba(255,255,255,0.7)';
+        } else {
+          backgroundColor = 'rgba(255,255,255,0.4)';
+        }
+
+        return React.createElement(_reactNative.View, babelHelpers.extends({}, props, {
+          style: [this.props.style, {
+            backgroundColor: backgroundColor
+          }]
+        }));
+      }
+    }]);
+    return BlurView;
+  }(React.Component), _class.propTypes = babelHelpers.extends({
+    tint: _propTypes2.default.oneOf(['light', 'default', 'dark'])
+  }, _reactNative.ViewPropTypes), _temp);
+  exports.default = BlurView;
+});

@@ -1,0 +1,22 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var AnimatedImplementation = _require(_dependencyMap[0]);
+
+  var Image = _require(_dependencyMap[1]);
+
+  var ScrollView = _require(_dependencyMap[2]);
+
+  var Text = _require(_dependencyMap[3]);
+
+  var View = _require(_dependencyMap[4]);
+
+  var Animated = {
+    View: AnimatedImplementation.createAnimatedComponent(View),
+    Text: AnimatedImplementation.createAnimatedComponent(Text),
+    Image: AnimatedImplementation.createAnimatedComponent(Image),
+    ScrollView: AnimatedImplementation.createAnimatedComponent(ScrollView)
+  };
+  babelHelpers.extends(Animated, AnimatedImplementation);
+  module.exports = Animated;
+});

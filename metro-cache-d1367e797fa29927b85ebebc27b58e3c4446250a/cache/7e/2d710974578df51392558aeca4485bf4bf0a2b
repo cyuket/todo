@@ -1,0 +1,12 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = checkArgs;
+
+  var _ReactPropTypesSecret = _require(_dependencyMap[0]);
+
+  var _ReactPropTypesSecret2 = babelHelpers.interopRequireDefault(_ReactPropTypesSecret);
+
+  function checkArgs(typeSpecs, values, location, componentName) {}
+});

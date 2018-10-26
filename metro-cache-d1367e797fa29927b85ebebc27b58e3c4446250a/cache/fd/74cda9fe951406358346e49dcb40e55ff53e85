@@ -1,0 +1,31 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var NativeModules = _require(_dependencyMap[0]);
+
+  var Platform = _require(_dependencyMap[1]);
+
+  var defineLazyObjectProperty = _require(_dependencyMap[2]);
+
+  var invariant = _require(_dependencyMap[3]);
+
+  var UIManager = NativeModules.UIManager;
+  invariant(UIManager, 'UIManager is undefined. The native module config is probably incorrect.');
+  UIManager.__takeSnapshot = UIManager.takeSnapshot;
+
+  UIManager.takeSnapshot = function () {
+    invariant(false, "UIManager.takeSnapshot should not be called directly. Use ReactNative.takeSnapshot instead.");
+  };
+
+  if (UIManager.ViewManagerNames) {
+    UIManager.ViewManagerNames.forEach(function (viewManagerName) {
+      defineLazyObjectProperty(UIManager, viewManagerName, {
+        get: function get() {
+          return UIManager.getConstantsForViewManager(viewManagerName);
+        }
+      });
+    });
+  }
+
+  module.exports = UIManager;
+});

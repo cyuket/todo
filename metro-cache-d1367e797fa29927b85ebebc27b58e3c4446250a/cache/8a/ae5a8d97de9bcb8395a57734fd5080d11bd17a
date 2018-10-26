@@ -1,0 +1,13 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _createReactNativeComponentClass = _require(_dependencyMap[0]);
+
+  var _createReactNativeComponentClass2 = babelHelpers.interopRequireDefault(_createReactNativeComponentClass);
+
+  exports.default = function (uiViewClassName, getViewConfig) {
+    return _createReactNativeComponentClass2.default.length >= 2 ? (0, _createReactNativeComponentClass2.default)(uiViewClassName, getViewConfig) : (0, _createReactNativeComponentClass2.default)(getViewConfig());
+  };
+});

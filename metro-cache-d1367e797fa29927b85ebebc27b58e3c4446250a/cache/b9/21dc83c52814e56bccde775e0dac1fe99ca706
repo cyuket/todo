@@ -1,0 +1,79 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _expoCore = _require(_dependencyMap[0]);
+
+  var _checkArgs = _require(_dependencyMap[1]);
+
+  var _checkArgs2 = babelHelpers.interopRequireDefault(_checkArgs);
+
+  var _checkInit = _require(_dependencyMap[2]);
+
+  var _checkInit2 = babelHelpers.interopRequireDefault(_checkInit);
+
+  var _types = _require(_dependencyMap[3]);
+
+  var types = babelHelpers.interopRequireWildcard(_types);
+  var StripeModule = _expoCore.NativeModulesProxy.StripeModule;
+
+  var Stripe = function Stripe() {
+    var _this = this;
+
+    babelHelpers.classCallCheck(this, Stripe);
+    this.stripeInitialized = false;
+
+    this.setOptionsAsync = function () {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _checkArgs2.default)(types.setOptionsOptionsPropTypes, options, 'options', 'Stripe.setOptions');
+      _this.stripeInitialized = true;
+      return StripeModule.init(options);
+    };
+
+    this.deviceSupportsAndroidPayAsync = function () {
+      return StripeModule.deviceSupportsAndroidPay();
+    };
+
+    this.canMakeAndroidPayPaymentsAsync = function () {
+      return StripeModule.canMakeAndroidPayPayments();
+    };
+
+    this.paymentRequestWithAndroidPayAsync = function () {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _checkInit2.default)(_this);
+      (0, _checkArgs2.default)(types.paymentRequestWithAndroidPayOptionsPropTypes, options, 'options', 'Stripe.paymentRequestWithAndroidPay');
+      return StripeModule.paymentRequestWithAndroidPay(options);
+    };
+
+    this.paymentRequestWithCardFormAsync = function () {
+      var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _checkInit2.default)(_this);
+      (0, _checkArgs2.default)(types.paymentRequestWithCardFormOptionsPropTypes, options, 'options', 'Stripe.paymentRequestWithCardForm');
+      return StripeModule.paymentRequestWithCardForm(options);
+    };
+
+    this.createTokenWithCardAsync = function () {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _checkInit2.default)(_this);
+      (0, _checkArgs2.default)(types.createTokenWithCardParamsPropTypes, params, 'params', 'Stripe.createTokenWithCard');
+      return StripeModule.createTokenWithCard(params);
+    };
+
+    this.createTokenWithBankAccountAsync = function () {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _checkInit2.default)(_this);
+      (0, _checkArgs2.default)(types.createTokenWithBankAccountParamsPropTypes, params, 'params', 'Stripe.createTokenWithBankAccount');
+      return StripeModule.createTokenWithBankAccount(params);
+    };
+
+    this.createSourceWithParamsAsync = function () {
+      var params = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      (0, _checkInit2.default)(_this);
+      (0, _checkArgs2.default)(types.createSourceWithParamsPropType, params, 'params', 'Stripe.createSourceWithParams');
+      return StripeModule.createSourceWithParams(params);
+    };
+  };
+
+  exports.default = new Stripe();
+});

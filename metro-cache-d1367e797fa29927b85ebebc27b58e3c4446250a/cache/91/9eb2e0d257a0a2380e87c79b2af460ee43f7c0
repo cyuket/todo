@@ -1,0 +1,23 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = processTheme;
+
+  var _processColor = _require(_dependencyMap[0]);
+
+  var _processColor2 = babelHelpers.interopRequireDefault(_processColor);
+
+  function processTheme() {
+    var theme = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return Object.keys(theme).reduce(function (result, key) {
+      var value = theme[key];
+
+      if (key.toLowerCase().endsWith('color')) {
+        value = (0, _processColor2.default)(value);
+      }
+
+      return babelHelpers.extends({}, result, babelHelpers.defineProperty({}, key, value));
+    }, {});
+  }
+});

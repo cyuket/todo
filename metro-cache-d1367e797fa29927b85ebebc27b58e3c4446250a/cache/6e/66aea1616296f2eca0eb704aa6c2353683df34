@@ -1,0 +1,28 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  module.exports = {
+    get Accelerometer() {
+      return _require(_dependencyMap[0]).default;
+    },
+
+    get DeviceMotion() {
+      return _require(_dependencyMap[1]).default;
+    },
+
+    get Gyroscope() {
+      return _require(_dependencyMap[2]).default;
+    },
+
+    get Magnetometer() {
+      return _require(_dependencyMap[3]).default;
+    },
+
+    get MagnetometerUncalibrated() {
+      return _require(_dependencyMap[4]).default;
+    },
+
+    get Pedometer() {
+      return _require(_dependencyMap[5]);
+    }
+
+  };
+});

@@ -1,0 +1,11 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var Platform = _require(_dependencyMap[0]);
+
+  var TVViewPropTypes = {};
+
+  if (Platform.isTV || false) {
+    TVViewPropTypes = _require(_dependencyMap[1]);
+  }
+
+  module.exports = TVViewPropTypes;
+});

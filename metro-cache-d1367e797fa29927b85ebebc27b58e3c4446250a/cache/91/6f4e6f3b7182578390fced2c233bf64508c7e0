@@ -1,0 +1,15 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _Foundation = _require(_dependencyMap[0]);
+
+  var _Foundation2 = babelHelpers.interopRequireDefault(_Foundation);
+
+  var _createIconSet = _require(_dependencyMap[1]);
+
+  var _createIconSet2 = babelHelpers.interopRequireDefault(_createIconSet);
+
+  exports.default = (0, _createIconSet2.default)(_Foundation2.default, 'foundation', _require(_dependencyMap[2]));
+});

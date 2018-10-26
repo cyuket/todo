@@ -1,0 +1,67 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var invariant = _require(_dependencyMap[0]);
+
+  var TRACE_TAG_REACT_APPS = 131072;
+  var TRACE_TAG_JS_VM_CALLS = 134217728;
+  var _enabled = false;
+  var _asyncCookie = 0;
+  var _markStack = [];
+
+  var _markStackIndex = -1;
+
+  var _canInstallReactHook = false;
+  var REACT_MARKER = "\u269B";
+  var userTimingPolyfill = null;
+  var Systrace = {
+    installReactHook: function installReactHook() {
+      if (_enabled) {}
+
+      _canInstallReactHook = true;
+    },
+    setEnabled: function setEnabled(enabled) {
+      if (_enabled !== enabled) {
+        _enabled = enabled;
+      }
+    },
+    isEnabled: function isEnabled() {
+      return _enabled;
+    },
+    beginEvent: function beginEvent(profileName, args) {
+      if (_enabled) {
+        profileName = typeof profileName === 'function' ? profileName() : profileName;
+        global.nativeTraceBeginSection(TRACE_TAG_REACT_APPS, profileName, args);
+      }
+    },
+    endEvent: function endEvent() {
+      if (_enabled) {
+        global.nativeTraceEndSection(TRACE_TAG_REACT_APPS);
+      }
+    },
+    beginAsyncEvent: function beginAsyncEvent(profileName) {
+      var cookie = _asyncCookie;
+
+      if (_enabled) {
+        _asyncCookie++;
+        profileName = typeof profileName === 'function' ? profileName() : profileName;
+        global.nativeTraceBeginAsyncSection(TRACE_TAG_REACT_APPS, profileName, cookie);
+      }
+
+      return cookie;
+    },
+    endAsyncEvent: function endAsyncEvent(profileName, cookie) {
+      if (_enabled) {
+        profileName = typeof profileName === 'function' ? profileName() : profileName;
+        global.nativeTraceEndAsyncSection(TRACE_TAG_REACT_APPS, profileName, cookie);
+      }
+    },
+    counterEvent: function counterEvent(profileName, value) {
+      if (_enabled) {
+        profileName = typeof profileName === 'function' ? profileName() : profileName;
+        global.nativeTraceCounter && global.nativeTraceCounter(TRACE_TAG_REACT_APPS, profileName, value);
+      }
+    }
+  };
+  module.exports = Systrace;
+});

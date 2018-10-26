@@ -1,0 +1,122 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.addWhitelistedNativeProps = addWhitelistedNativeProps;
+  exports.addWhitelistedUIProps = addWhitelistedUIProps;
+
+  var _ReanimatedModule = _require(_dependencyMap[0]);
+
+  var _ReanimatedModule2 = babelHelpers.interopRequireDefault(_ReanimatedModule);
+
+  var UI_THREAD_PROPS_WHITELIST = {
+    opacity: true,
+    transform: true,
+    backgroundColor: true,
+    borderRightColor: true,
+    borderBottomColor: true,
+    borderColor: true,
+    borderEndColor: true,
+    borderLeftColor: true,
+    borderStartColor: true,
+    borderTopColor: true,
+    shadowOpacity: true,
+    shadowRadius: true,
+    scaleX: true,
+    scaleY: true,
+    translateX: true,
+    translateY: true
+  };
+  var NATIVE_THREAD_PROPS_WHITELIST = {
+    borderBottomWidth: true,
+    borderEndWidth: true,
+    borderLeftWidth: true,
+    borderRightWidth: true,
+    borderStartWidth: true,
+    borderTopWidth: true,
+    borderWidth: true,
+    bottom: true,
+    flex: true,
+    flexGrow: true,
+    flexShrink: true,
+    height: true,
+    left: true,
+    margin: true,
+    marginBottom: true,
+    marginEnd: true,
+    marginHorizontal: true,
+    marginLeft: true,
+    marginRight: true,
+    marginStart: true,
+    marginTop: true,
+    marginVertical: true,
+    maxHeight: true,
+    maxWidth: true,
+    minHeight: true,
+    minWidth: true,
+    padding: true,
+    paddingBottom: true,
+    paddingEnd: true,
+    paddingHorizontal: true,
+    paddingLeft: true,
+    paddingRight: true,
+    paddingStart: true,
+    paddingTop: true,
+    paddingVertical: true,
+    right: true,
+    start: true,
+    top: true,
+    width: true,
+    zIndex: true,
+    borderBottomEndRadius: true,
+    borderBottomLeftRadius: true,
+    borderBottomRightRadius: true,
+    borderBottomStartRadius: true,
+    borderBottomWidth: true,
+    borderLeftWidth: true,
+    borderRadius: true,
+    borderRightWidth: true,
+    borderTopEndRadius: true,
+    borderTopLeftRadius: true,
+    borderTopRightRadius: true,
+    borderTopStartRadius: true,
+    borderTopWidth: true,
+    borderWidth: true,
+    opacity: true,
+    elevation: true,
+    fontSize: true,
+    lineHeight: true,
+    textShadowRadius: true,
+    letterSpacing: true,
+    display: true,
+    backfaceVisibility: true,
+    overflow: true,
+    resizeMode: true,
+    fontStyle: true,
+    fontWeight: true,
+    textAlign: true,
+    textDecorationLine: true,
+    fontFamily: true,
+    textAlignVertical: true,
+    fontVariant: true,
+    textDecorationStyle: true,
+    textTransform: true,
+    writingDirection: true
+  };
+
+  function configureProps() {
+    _ReanimatedModule2.default.configureProps(Object.keys(NATIVE_THREAD_PROPS_WHITELIST), Object.keys(UI_THREAD_PROPS_WHITELIST));
+  }
+
+  function addWhitelistedNativeProps(props) {
+    NATIVE_THREAD_PROPS_WHITELIST = babelHelpers.extends({}, NATIVE_THREAD_PROPS_WHITELIST, props);
+    configureProps();
+  }
+
+  function addWhitelistedUIProps(props) {
+    UI_THREAD_PROPS_WHITELIST = babelHelpers.extends({}, UI_THREAD_PROPS_WHITELIST, props);
+    configureProps();
+  }
+
+  configureProps();
+});

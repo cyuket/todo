@@ -1,0 +1,32 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var _class, _temp;
+
+  var React = _require(_dependencyMap[0]);
+
+  var ViewPropTypes = _require(_dependencyMap[1]);
+
+  var requireNativeComponent = _require(_dependencyMap[2]);
+
+  var SafeAreaView = (_temp = _class = function (_React$Component) {
+    babelHelpers.inherits(SafeAreaView, _React$Component);
+
+    function SafeAreaView() {
+      babelHelpers.classCallCheck(this, SafeAreaView);
+      return babelHelpers.possibleConstructorReturn(this, (SafeAreaView.__proto__ || Object.getPrototypeOf(SafeAreaView)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(SafeAreaView, [{
+      key: "render",
+      value: function render() {
+        return React.createElement(RCTSafeAreaView, this.props);
+      }
+    }]);
+    return SafeAreaView;
+  }(React.Component), _class.propTypes = babelHelpers.extends({}, ViewPropTypes), _temp);
+  var RCTSafeAreaView = requireNativeComponent('RCTSafeAreaView', {
+    name: 'RCTSafeAreaView',
+    displayName: 'RCTSafeAreaView',
+    propTypes: babelHelpers.extends({}, ViewPropTypes)
+  });
+  module.exports = SafeAreaView;
+});

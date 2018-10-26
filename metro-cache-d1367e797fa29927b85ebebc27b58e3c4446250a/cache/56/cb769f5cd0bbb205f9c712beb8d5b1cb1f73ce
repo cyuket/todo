@@ -1,0 +1,46 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _utils = _require(_dependencyMap[0]);
+
+  var _AnimatedNode2 = _require(_dependencyMap[1]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var AnimatedCond = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedCond, _AnimatedNode);
+
+    function AnimatedCond(condition, ifBlock, elseBlock) {
+      babelHelpers.classCallCheck(this, AnimatedCond);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedCond.__proto__ || Object.getPrototypeOf(AnimatedCond)).call(this, {
+        type: 'cond',
+        cond: condition.__nodeID,
+        ifBlock: ifBlock.__nodeID,
+        elseBlock: elseBlock ? elseBlock.__nodeID : undefined
+      }, [condition, ifBlock, elseBlock]));
+
+      _this._condition = condition;
+      _this._ifBlock = ifBlock;
+      _this._elseBlock = elseBlock;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedCond, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        if ((0, _utils.val)(this._condition)) {
+          return (0, _utils.val)(this._ifBlock);
+        } else {
+          return this._elseBlock !== undefined ? (0, _utils.val)(this._elseBlock) : undefined;
+        }
+      }
+    }]);
+    return AnimatedCond;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedCond;
+});

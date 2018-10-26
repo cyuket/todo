@@ -1,0 +1,130 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var React = babelHelpers.interopRequireWildcard(_react);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var _AppLoading = _require(_dependencyMap[2]);
+
+  var RootErrorBoundary = function (_React$Component) {
+    babelHelpers.inherits(RootErrorBoundary, _React$Component);
+
+    function RootErrorBoundary() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, RootErrorBoundary);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = RootErrorBoundary.__proto__ || Object.getPrototypeOf(RootErrorBoundary)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+        error: null
+      }, _this._appLoadingIsMounted = false, _this._subscribeToGlobalErrors = function () {
+        _this._appLoadingIsMounted = true;
+        var ErrorUtils = global.ErrorUtils;
+        var originalErrorHandler = ErrorUtils.getGlobalHandler();
+        ErrorUtils.setGlobalHandler(function (error, isFatal) {
+          if (_this._appLoadingIsMounted) {
+            _reactNative.NativeModules.ExponentAppLoadingManager && _reactNative.NativeModules.ExponentAppLoadingManager.finishedAsync();
+
+            if (isFatal) {
+              _this.setState({
+                error: error
+              });
+            }
+          }
+
+          originalErrorHandler(error, isFatal);
+        });
+      }, _this._unsubscribeFromGlobalErrors = function () {
+        _this._appLoadingIsMounted = false;
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(RootErrorBoundary, [{
+      key: "componentWillMount",
+      value: function componentWillMount() {}
+    }, {
+      key: "componentDidCatch",
+      value: function componentDidCatch(error) {
+        if (this._appLoadingIsMounted) {
+          _reactNative.NativeModules.ExponentAppLoadingManager && _reactNative.NativeModules.ExponentAppLoadingManager.finishedAsync();
+          this.setState({
+            error: error
+          });
+        }
+
+        console.error(error);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        if (this.state.error) {
+          return React.createElement(
+            _reactNative.View,
+            {
+              style: styles.container
+            },
+            React.createElement(
+              _reactNative.Text,
+              {
+                style: styles.warningIcon
+              },
+              "\u26A0\uFE0F"
+            ),
+            React.createElement(
+              _reactNative.Text,
+              {
+                style: [styles.paragraph, {
+                  color: '#000'
+                }]
+              },
+              "A fatal error was encountered while rendering the root component."
+            ),
+            React.createElement(
+              _reactNative.Text,
+              {
+                style: styles.paragraph
+              },
+              "Review your application logs for more information, and reload the app when the issue is resolved. In production, your app would have crashed."
+            )
+          );
+        } else {
+          return this.props.children;
+        }
+      }
+    }]);
+    return RootErrorBoundary;
+  }(React.Component);
+
+  exports.default = RootErrorBoundary;
+
+  var styles = _reactNative.StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    paragraph: {
+      marginBottom: 10,
+      textAlign: 'center',
+      marginHorizontal: 30,
+      maxWidth: 350,
+      fontSize: 15,
+      color: '#888'
+    },
+    warningIcon: {
+      fontSize: 40,
+      marginBottom: 20
+    }
+  });
+});

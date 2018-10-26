@@ -1,0 +1,15 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    'use strict';
+
+    var stringify = _require(_dependencyMap[0]);
+
+    var parse = _require(_dependencyMap[1]);
+
+    var formats = _require(_dependencyMap[2]);
+
+    module.exports = {
+        formats: formats,
+        parse: parse,
+        stringify: stringify
+    };
+});

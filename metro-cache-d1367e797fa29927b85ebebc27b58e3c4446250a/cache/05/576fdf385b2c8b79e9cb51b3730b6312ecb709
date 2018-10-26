@@ -1,0 +1,23 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.Constants = undefined;
+  exports.detectFacesAsync = detectFacesAsync;
+
+  var _expoCore = _require(_dependencyMap[0]);
+
+  var FaceDetectorModule = _expoCore.NativeModulesProxy.ExpoFaceDetector;
+
+  function detectFacesAsync(uri, options) {
+    return FaceDetectorModule.detectFaces(babelHelpers.extends({}, options, {
+      uri: uri
+    }));
+  }
+
+  var Constants = exports.Constants = {
+    Mode: FaceDetectorModule.Mode,
+    Landmarks: FaceDetectorModule.Landmarks,
+    Classifications: FaceDetectorModule.Classifications
+  };
+});

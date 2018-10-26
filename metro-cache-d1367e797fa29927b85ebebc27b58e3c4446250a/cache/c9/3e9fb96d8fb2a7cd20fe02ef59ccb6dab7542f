@@ -1,0 +1,28 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _AnimatedNode2 = _require(_dependencyMap[0]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var AnimatedConcat = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedConcat, _AnimatedNode);
+
+    function AnimatedConcat(input) {
+      babelHelpers.classCallCheck(this, AnimatedConcat);
+      return babelHelpers.possibleConstructorReturn(this, (AnimatedConcat.__proto__ || Object.getPrototypeOf(AnimatedConcat)).call(this, {
+        type: 'concat',
+        input: input.map(function (n) {
+          return n.__nodeID;
+        })
+      }, input));
+    }
+
+    return AnimatedConcat;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedConcat;
+});

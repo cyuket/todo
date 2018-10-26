@@ -1,0 +1,27 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = color;
+
+  var _base = _require(_dependencyMap[0]);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var _AnimatedNode = _require(_dependencyMap[2]);
+
+  var _AnimatedNode2 = babelHelpers.interopRequireDefault(_AnimatedNode);
+
+  function color(r, g, b) {
+    var a = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+    if (a instanceof _AnimatedNode2.default) {
+      a = (0, _base.round)((0, _base.multiply)(a, 255));
+    } else {
+      a = Math.round(a * 255);
+    }
+
+    var color = (0, _base.add)((0, _base.multiply)(a, 16777216), (0, _base.multiply)(r, 65536), (0, _base.multiply)(g, 256), b);
+    return color;
+  }
+});

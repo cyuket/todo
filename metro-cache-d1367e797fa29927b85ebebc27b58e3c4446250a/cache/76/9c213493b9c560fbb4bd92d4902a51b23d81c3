@@ -1,0 +1,83 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.NativeAdIconView = undefined;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var React = babelHelpers.interopRequireWildcard(_react);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var _withNativeAd = _require(_dependencyMap[2]);
+
+  var NativeAdIconView = exports.NativeAdIconView = (0, _reactNative.requireNativeComponent)('AdIconView', null, {});
+
+  var AdIconViewChild = function (_React$Component) {
+    babelHelpers.inherits(AdIconViewChild, _React$Component);
+
+    function AdIconViewChild() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, AdIconViewChild);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = AdIconViewChild.__proto__ || Object.getPrototypeOf(AdIconViewChild)).call.apply(_ref, [this].concat(args))), _this), _this._handleAdIconViewRef = function (ref) {
+        if (_this._nativeAdIconViewRef) {
+          _this.props.unregister(_this._nativeAdIconViewRef);
+
+          _this._nativeAdIconViewRef = null;
+        }
+
+        if (ref) {
+          _this.props.register(ref);
+
+          _this._nativeAdIconViewRef = ref;
+        }
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(AdIconViewChild, [{
+      key: "render",
+      value: function render() {
+        return React.createElement(NativeAdIconView, babelHelpers.extends({}, this.props, {
+          ref: this._handleAdIconViewRef
+        }));
+      }
+    }]);
+    return AdIconViewChild;
+  }(React.Component);
+
+  var AdIconView = function (_React$Component2) {
+    babelHelpers.inherits(AdIconView, _React$Component2);
+
+    function AdIconView() {
+      babelHelpers.classCallCheck(this, AdIconView);
+      return babelHelpers.possibleConstructorReturn(this, (AdIconView.__proto__ || Object.getPrototypeOf(AdIconView)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(AdIconView, [{
+      key: "render",
+      value: function render() {
+        var _this3 = this;
+
+        return React.createElement(
+          _withNativeAd.AdIconViewContext.Consumer,
+          null,
+          function (contextValue) {
+            return React.createElement(AdIconViewChild, babelHelpers.extends({}, _this3.props, contextValue));
+          }
+        );
+      }
+    }]);
+    return AdIconView;
+  }(React.Component);
+
+  exports.default = AdIconView;
+});

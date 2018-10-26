@@ -1,0 +1,78 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _reactNative = _require(_dependencyMap[0]);
+
+  var _ReanimatedModule = _require(_dependencyMap[1]);
+
+  var _ReanimatedModule2 = babelHelpers.interopRequireDefault(_ReanimatedModule);
+
+  var _AnimatedNode2 = _require(_dependencyMap[2]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var _AnimatedValue = _require(_dependencyMap[3]);
+
+  var _AnimatedValue2 = babelHelpers.interopRequireDefault(_AnimatedValue);
+
+  var _invariant = _require(_dependencyMap[4]);
+
+  var _invariant2 = babelHelpers.interopRequireDefault(_invariant);
+
+  function sanitizeArgMapping(argMapping) {
+    var eventMappings = [];
+
+    var traverse = function traverse(value, path) {
+      if (value instanceof _AnimatedValue2.default) {
+        eventMappings.push(path.concat(value.__nodeID));
+      } else if (typeof value === 'object') {
+        for (var key in value) {
+          traverse(value[key], path.concat(key));
+        }
+      }
+    };
+
+    (0, _invariant2.default)(argMapping[0] && argMapping[0].nativeEvent, 'Native driven events only support animated values contained inside `nativeEvent`.');
+    traverse(argMapping[0].nativeEvent, []);
+    return eventMappings;
+  }
+
+  var AnimatedEvent = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedEvent, _AnimatedNode);
+
+    function AnimatedEvent(argMapping) {
+      var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      babelHelpers.classCallCheck(this, AnimatedEvent);
+      return babelHelpers.possibleConstructorReturn(this, (AnimatedEvent.__proto__ || Object.getPrototypeOf(AnimatedEvent)).call(this, {
+        type: 'event',
+        argMapping: sanitizeArgMapping(argMapping)
+      }));
+    }
+
+    babelHelpers.createClass(AnimatedEvent, [{
+      key: "attachEvent",
+      value: function attachEvent(viewRef, eventName) {
+        this.__attach();
+
+        var viewTag = (0, _reactNative.findNodeHandle)(viewRef);
+
+        _ReanimatedModule2.default.attachEvent(viewTag, eventName, this.__nodeID);
+      }
+    }, {
+      key: "detachEvent",
+      value: function detachEvent(viewRef, eventName) {
+        var viewTag = (0, _reactNative.findNodeHandle)(viewRef);
+
+        _ReanimatedModule2.default.detachEvent(viewTag, eventName, this.__nodeID);
+
+        this.__detach();
+      }
+    }]);
+    return AnimatedEvent;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedEvent;
+});

@@ -1,0 +1,9 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  var _expo = _require(_dependencyMap[0]);
+
+  var _App = _require(_dependencyMap[1]);
+
+  var _App2 = babelHelpers.interopRequireDefault(_App);
+
+  (0, _expo.registerRootComponent)(_App2.default);
+});

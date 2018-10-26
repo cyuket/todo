@@ -1,0 +1,115 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.ScreenContainer = exports.Screen = undefined;
+  exports.useScreens = useScreens;
+  exports.screensEnabled = screensEnabled;
+
+  var _react = _require(_dependencyMap[0]);
+
+  var _react2 = babelHelpers.interopRequireDefault(_react);
+
+  var _reactNative = _require(_dependencyMap[1]);
+
+  var USE_SCREENS = false;
+
+  function useScreens() {
+    var shouldUseScreens = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+    USE_SCREENS = shouldUseScreens;
+
+    if (USE_SCREENS && !_reactNative.UIManager['RNSScreen']) {
+      console.error("Screen native module hasn't been linked. Please check the react-native-screens README for more details");
+    }
+  }
+
+  function screensEnabled() {
+    return USE_SCREENS;
+  }
+
+  var NativeScreen = _reactNative.Animated.createAnimatedComponent((0, _reactNative.requireNativeComponent)('RNSScreen', null));
+
+  var NativeScreenContainer = (0, _reactNative.requireNativeComponent)('RNSScreenContainer', null);
+
+  var Screen = exports.Screen = function (_React$Component) {
+    babelHelpers.inherits(Screen, _React$Component);
+
+    function Screen() {
+      var _ref;
+
+      var _temp, _this, _ret;
+
+      babelHelpers.classCallCheck(this, Screen);
+
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      return _ret = (_temp = (_this = babelHelpers.possibleConstructorReturn(this, (_ref = Screen.__proto__ || Object.getPrototypeOf(Screen)).call.apply(_ref, [this].concat(args))), _this), _this.setRef = function (ref) {
+        _this._ref = ref;
+        _this.props.onComponentRef && _this.props.onComponentRef(ref);
+      }, _temp), babelHelpers.possibleConstructorReturn(_this, _ret);
+    }
+
+    babelHelpers.createClass(Screen, [{
+      key: "setNativeProps",
+      value: function setNativeProps(props) {
+        this._ref.setNativeProps(props);
+      }
+    }, {
+      key: "render",
+      value: function render() {
+        if (!USE_SCREENS) {
+          var _props = this.props,
+              active = _props.active,
+              onComponentRef = _props.onComponentRef,
+              props = babelHelpers.objectWithoutProperties(_props, ["active", "onComponentRef"]);
+          return _react2.default.createElement(_reactNative.Animated.View, babelHelpers.extends({}, props, {
+            ref: this.setRef
+          }));
+        } else {
+          var _props2 = this.props,
+              style = _props2.style,
+              children = _props2.children,
+              rest = babelHelpers.objectWithoutProperties(_props2, ["style", "children"]);
+          return _react2.default.createElement(
+            NativeScreen,
+            babelHelpers.extends({}, rest, {
+              ref: this.setRef,
+              style: _reactNative.StyleSheet.absoluteFill
+            }),
+            _react2.default.createElement(
+              _reactNative.Animated.View,
+              {
+                style: style
+              },
+              children
+            )
+          );
+        }
+      }
+    }]);
+    return Screen;
+  }(_react2.default.Component);
+
+  var ScreenContainer = exports.ScreenContainer = function (_React$Component2) {
+    babelHelpers.inherits(ScreenContainer, _React$Component2);
+
+    function ScreenContainer() {
+      babelHelpers.classCallCheck(this, ScreenContainer);
+      return babelHelpers.possibleConstructorReturn(this, (ScreenContainer.__proto__ || Object.getPrototypeOf(ScreenContainer)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(ScreenContainer, [{
+      key: "render",
+      value: function render() {
+        if (!USE_SCREENS) {
+          return _react2.default.createElement(_reactNative.View, this.props);
+        } else {
+          return _react2.default.createElement(NativeScreenContainer, this.props);
+        }
+      }
+    }]);
+    return ScreenContainer;
+  }(_react2.default.Component);
+});

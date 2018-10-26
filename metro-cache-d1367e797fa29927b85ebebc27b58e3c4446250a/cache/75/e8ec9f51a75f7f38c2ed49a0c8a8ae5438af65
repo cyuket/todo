@@ -1,0 +1,94 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var NativeMethodsMixin = _require(_dependencyMap[1]);
+
+  var Platform = _require(_dependencyMap[2]);
+
+  var React = _require(_dependencyMap[3]);
+
+  var PropTypes = _require(_dependencyMap[4]);
+
+  var StyleSheet = _require(_dependencyMap[5]);
+
+  var ViewPropTypes = _require(_dependencyMap[6]);
+
+  var createReactClass = _require(_dependencyMap[7]);
+
+  var requireNativeComponent = _require(_dependencyMap[8]);
+
+  var Switch = createReactClass({
+    displayName: 'Switch',
+    propTypes: babelHelpers.extends({}, ViewPropTypes, {
+      value: PropTypes.bool,
+      disabled: PropTypes.bool,
+      onValueChange: PropTypes.func,
+      testID: PropTypes.string,
+      tintColor: ColorPropType,
+      onTintColor: ColorPropType,
+      thumbTintColor: ColorPropType
+    }),
+    getDefaultProps: function getDefaultProps() {
+      return {
+        value: false,
+        disabled: false
+      };
+    },
+    mixins: [NativeMethodsMixin],
+    _rctSwitch: {},
+    _onChange: function _onChange(event) {
+      {
+        this._rctSwitch.setNativeProps({
+          on: this.props.value
+        });
+      }
+      this.props.onChange && this.props.onChange(event);
+      this.props.onValueChange && this.props.onValueChange(event.nativeEvent.value);
+    },
+    render: function render() {
+      var _this = this;
+
+      var props = babelHelpers.extends({}, this.props);
+
+      props.onStartShouldSetResponder = function () {
+        return true;
+      };
+
+      props.onResponderTerminationRequest = function () {
+        return false;
+      };
+
+      {
+        props.enabled = !this.props.disabled;
+        props.on = this.props.value;
+        props.style = this.props.style;
+        props.trackTintColor = this.props.value ? this.props.onTintColor : this.props.tintColor;
+      }
+      return React.createElement(RCTSwitch, babelHelpers.extends({}, props, {
+        ref: function ref(_ref) {
+          _this._rctSwitch = _ref;
+        },
+        onChange: this._onChange
+      }));
+    }
+  });
+  var styles = StyleSheet.create({
+    rctSwitchIOS: {
+      height: 31,
+      width: 51
+    }
+  });
+  {
+    var RCTSwitch = requireNativeComponent('AndroidSwitch', Switch, {
+      nativeOnly: {
+        onChange: true,
+        on: true,
+        enabled: true,
+        trackTintColor: true
+      }
+    });
+  }
+  module.exports = Switch;
+});

@@ -1,0 +1,95 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+  exports.createOrReuseStyleNode = createOrReuseStyleNode;
+
+  var _reactNative = _require(_dependencyMap[0]);
+
+  var _AnimatedNode2 = _require(_dependencyMap[1]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var _AnimatedTransform = _require(_dependencyMap[2]);
+
+  var _areEqual = _require(_dependencyMap[3]);
+
+  var _areEqual2 = babelHelpers.interopRequireDefault(_areEqual);
+
+  function sanitizeStyle(inputStyle) {
+    var style = {};
+
+    for (var key in inputStyle) {
+      var value = inputStyle[key];
+
+      if (value instanceof _AnimatedNode3.default) {
+        style[key] = value.__nodeID;
+      }
+    }
+
+    return style;
+  }
+
+  function createOrReuseStyleNode(style, oldNode) {
+    style = _reactNative.StyleSheet.flatten(style) || {};
+
+    if (style.transform) {
+      style = babelHelpers.extends({}, style, {
+        transform: (0, _AnimatedTransform.createOrReuseTransformNode)(style.transform, oldNode && oldNode._style.transform)
+      });
+    }
+
+    var config = sanitizeStyle(style);
+
+    if (oldNode && (0, _areEqual2.default)(config, oldNode._config)) {
+      return oldNode;
+    }
+
+    return new AnimatedStyle(style, config);
+  }
+
+  var AnimatedStyle = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedStyle, _AnimatedNode);
+
+    function AnimatedStyle(style, config) {
+      babelHelpers.classCallCheck(this, AnimatedStyle);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedStyle.__proto__ || Object.getPrototypeOf(AnimatedStyle)).call(this, {
+        type: 'style',
+        style: config
+      }, Object.values(style)));
+
+      _this._config = config;
+      _this._style = style;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedStyle, [{
+      key: "_walkStyleAndGetAnimatedValues",
+      value: function _walkStyleAndGetAnimatedValues(style) {
+        var updatedStyle = {};
+
+        for (var key in style) {
+          var value = style[key];
+
+          if (value instanceof _AnimatedNode3.default) {
+            updatedStyle[key] = value.__getValue();
+          } else if (value && !Array.isArray(value) && typeof value === 'object') {
+            updatedStyle[key] = this._walkStyleAndGetAnimatedValues(value);
+          }
+        }
+
+        return updatedStyle;
+      }
+    }, {
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        return this._walkStyleAndGetAnimatedValues(this._style);
+      }
+    }]);
+    return AnimatedStyle;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedStyle;
+});

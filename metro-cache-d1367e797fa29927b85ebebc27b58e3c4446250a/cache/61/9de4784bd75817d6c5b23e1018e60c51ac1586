@@ -1,0 +1,36 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+  exports.default = undefined;
+
+  var _AnimatedNode2 = _require(_dependencyMap[0]);
+
+  var _AnimatedNode3 = babelHelpers.interopRequireDefault(_AnimatedNode2);
+
+  var AnimatedAlways = function (_AnimatedNode) {
+    babelHelpers.inherits(AnimatedAlways, _AnimatedNode);
+
+    function AnimatedAlways(what) {
+      babelHelpers.classCallCheck(this, AnimatedAlways);
+
+      var _this = babelHelpers.possibleConstructorReturn(this, (AnimatedAlways.__proto__ || Object.getPrototypeOf(AnimatedAlways)).call(this, {
+        type: 'always',
+        what: what.__nodeID
+      }, [what]));
+
+      _this._what = what;
+      return _this;
+    }
+
+    babelHelpers.createClass(AnimatedAlways, [{
+      key: "__onEvaluate",
+      value: function __onEvaluate() {
+        return 0;
+      }
+    }]);
+    return AnimatedAlways;
+  }(_AnimatedNode3.default);
+
+  exports.default = AnimatedAlways;
+});

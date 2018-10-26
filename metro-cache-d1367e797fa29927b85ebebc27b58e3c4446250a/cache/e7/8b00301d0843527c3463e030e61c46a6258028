@@ -1,0 +1,331 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  _require(_dependencyMap[0]);
+
+  _require(_dependencyMap[1]);
+
+  _require(_dependencyMap[2]);
+
+  _require(_dependencyMap[3]);
+
+  var _expoConstants = _require(_dependencyMap[4]);
+
+  var _reactNative = _require(_dependencyMap[5]);
+
+  _reactNative.YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
+
+  if (typeof _expoConstants.Constants.manifest.env === 'object') {
+    babelHelpers.extends(process.env, _expoConstants.Constants.manifest.env);
+  }
+
+  global.__old_console_warn = global.__old_console_warn || console.warn;
+
+  global.console.warn = function () {
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    var tst = (args[0] || '') + '';
+
+    if (tst.startsWith('Warning: isMounted(...) is deprecated')) {
+      return;
+    }
+
+    return global.__old_console_warn.apply(console, args);
+  };
+
+  module.exports = {
+    get Crypto() {
+      return _reactNative.NativeModules.ExponentCrypto;
+    },
+
+    get Fabric() {
+      return _reactNative.NativeModules.ExponentFabric;
+    },
+
+    get ImageCropper() {
+      return _reactNative.NativeModules.ExponentImageCropper;
+    },
+
+    get apisAreAvailable() {
+      return _require(_dependencyMap[6]).default;
+    },
+
+    get registerRootComponent() {
+      return _require(_dependencyMap[7]).default;
+    },
+
+    get takeSnapshotAsync() {
+      return _require(_dependencyMap[8]).default;
+    },
+
+    get Accelerometer() {
+      return _require(_dependencyMap[9]).Accelerometer;
+    },
+
+    get Asset() {
+      return _require(_dependencyMap[10]).Asset;
+    },
+
+    get AuthSession() {
+      return _require(_dependencyMap[11]).default;
+    },
+
+    get ErrorRecovery() {
+      return _require(_dependencyMap[12]).default;
+    },
+
+    get GLView() {
+      return _require(_dependencyMap[13]).GLView;
+    },
+
+    get Gyroscope() {
+      return _require(_dependencyMap[9]).Gyroscope;
+    },
+
+    get Magnetometer() {
+      return _require(_dependencyMap[9]).Magnetometer;
+    },
+
+    get MagnetometerUncalibrated() {
+      return _require(_dependencyMap[9]).MagnetometerUncalibrated;
+    },
+
+    get Notifications() {
+      return _require(_dependencyMap[14]).default;
+    },
+
+    get SQLite() {
+      return _require(_dependencyMap[15]).default;
+    },
+
+    get AdMobBanner() {
+      return _require(_dependencyMap[16]).AdMobBanner;
+    },
+
+    get PublisherBanner() {
+      return _require(_dependencyMap[16]).PublisherBanner;
+    },
+
+    get AdMobInterstitial() {
+      return _require(_dependencyMap[16]).AdMobInterstitial;
+    },
+
+    get AdMobRewarded() {
+      return _require(_dependencyMap[16]).AdMobRewarded;
+    },
+
+    get AppLoading() {
+      return _require(_dependencyMap[17]).default;
+    },
+
+    get BarCodeScanner() {
+      return _require(_dependencyMap[18]).BarCodeScanner;
+    },
+
+    get BlurView() {
+      return _require(_dependencyMap[19]).default;
+    },
+
+    get Camera() {
+      return _require(_dependencyMap[20]).Camera;
+    },
+
+    get FaceDetector() {
+      return _require(_dependencyMap[21]).FaceDetector;
+    },
+
+    get GestureHandler() {
+      return _require(_dependencyMap[22]);
+    },
+
+    get KeepAwake() {
+      return _require(_dependencyMap[23]).default;
+    },
+
+    get LinearGradient() {
+      return _require(_dependencyMap[24]).default;
+    },
+
+    get MapView() {
+      return _require(_dependencyMap[25]).default;
+    },
+
+    get Modal() {
+      return _require(_dependencyMap[26]).default;
+    },
+
+    get Video() {
+      return _require(_dependencyMap[27]).default;
+    },
+
+    get WebBrowser() {
+      return _require(_dependencyMap[28]).default;
+    },
+
+    get Svg() {
+      return _require(_dependencyMap[29]).default;
+    },
+
+    get Fingerprint() {
+      console.warn('Expo.Fingerprint has been renamed to Expo.LocalAuthentication. The old name might be removed in the future releases.');
+      return this.LocalAuthentication;
+    },
+
+    get LocalAuthentication() {
+      return _require(_dependencyMap[30]).LocalAuthentication;
+    },
+
+    get Amplitude() {
+      return _require(_dependencyMap[31]).default;
+    },
+
+    get AR() {
+      return _require(_dependencyMap[32]);
+    },
+
+    get Audio() {
+      return _require(_dependencyMap[33]);
+    },
+
+    get Brightness() {
+      return _require(_dependencyMap[34]);
+    },
+
+    get Calendar() {
+      return _require(_dependencyMap[35]);
+    },
+
+    get Constants() {
+      return _require(_dependencyMap[4]).Constants;
+    },
+
+    get Contacts() {
+      return _require(_dependencyMap[36]).Contacts;
+    },
+
+    get DangerZone() {
+      return _require(_dependencyMap[37]);
+    },
+
+    get DocumentPicker() {
+      return _require(_dependencyMap[38]);
+    },
+
+    get FileSystem() {
+      return _require(_dependencyMap[39]).FileSystem;
+    },
+
+    get Font() {
+      return _require(_dependencyMap[40]).Font;
+    },
+
+    get Google() {
+      return _require(_dependencyMap[41]);
+    },
+
+    get Haptic() {
+      return _require(_dependencyMap[42]);
+    },
+
+    get Icon() {
+      return _require(_dependencyMap[43]).default;
+    },
+
+    get ImageManipulator() {
+      return _require(_dependencyMap[44]);
+    },
+
+    get ImagePicker() {
+      return _require(_dependencyMap[45]);
+    },
+
+    get Linking() {
+      return _require(_dependencyMap[46]).default;
+    },
+
+    get Location() {
+      return _require(_dependencyMap[47]).Location;
+    },
+
+    get Logs() {
+      return _require(_dependencyMap[48]).default;
+    },
+
+    get MailComposer() {
+      return _require(_dependencyMap[49]);
+    },
+
+    get MediaLibrary() {
+      return _require(_dependencyMap[50]).MediaLibrary;
+    },
+
+    get Pedometer() {
+      {
+        return _require(_dependencyMap[9]).Pedometer;
+      }
+    },
+
+    get Permissions() {
+      return _require(_dependencyMap[51]).Permissions;
+    },
+
+    get Print() {
+      return _require(_dependencyMap[52]).Print;
+    },
+
+    get Facebook() {
+      return _require(_dependencyMap[53]).default;
+    },
+
+    get FacebookAds() {
+      return _require(_dependencyMap[54]);
+    },
+
+    get IntentLauncherAndroid() {
+      return _require(_dependencyMap[55]);
+    },
+
+    get ScreenOrientation() {
+      return _require(_dependencyMap[56]);
+    },
+
+    get SecureStore() {
+      return _require(_dependencyMap[57]);
+    },
+
+    get Segment() {
+      return _require(_dependencyMap[58]).Segment;
+    },
+
+    get SMS() {
+      return _require(_dependencyMap[59]).SMS;
+    },
+
+    get Speech() {
+      return _require(_dependencyMap[60]);
+    },
+
+    get SplashScreen() {
+      return _require(_dependencyMap[61]);
+    },
+
+    get StoreReview() {
+      return _require(_dependencyMap[62]);
+    },
+
+    get Updates() {
+      return _require(_dependencyMap[63]);
+    },
+
+    get Util() {
+      return _require(_dependencyMap[64]);
+    }
+
+  };
+
+  if (global) {
+    global.__exponent = module.exports;
+    global.__expo = module.exports;
+    global.Expo = module.exports;
+  }
+});

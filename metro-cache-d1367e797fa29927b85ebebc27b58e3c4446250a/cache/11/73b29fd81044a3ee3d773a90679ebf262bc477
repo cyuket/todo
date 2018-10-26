@@ -1,0 +1,106 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var NativeMethodsMixin = _require(_dependencyMap[1]);
+
+  var Platform = _require(_dependencyMap[2]);
+
+  var ProgressBarAndroid = _require(_dependencyMap[3]);
+
+  var PropTypes = _require(_dependencyMap[4]);
+
+  var React = _require(_dependencyMap[5]);
+
+  var StyleSheet = _require(_dependencyMap[6]);
+
+  var View = _require(_dependencyMap[7]);
+
+  var ViewPropTypes = _require(_dependencyMap[8]);
+
+  var createReactClass = _require(_dependencyMap[9]);
+
+  var requireNativeComponent = _require(_dependencyMap[10]);
+
+  var RCTActivityIndicator = void 0;
+  var GRAY = '#999999';
+  var ActivityIndicator = createReactClass({
+    displayName: 'ActivityIndicator',
+    mixins: [NativeMethodsMixin],
+    propTypes: babelHelpers.extends({}, ViewPropTypes, {
+      animating: PropTypes.bool,
+      color: ColorPropType,
+      size: PropTypes.oneOfType([PropTypes.oneOf(['small', 'large']), PropTypes.number]),
+      hidesWhenStopped: PropTypes.bool
+    }),
+    getDefaultProps: function getDefaultProps() {
+      return {
+        animating: true,
+        color: GRAY,
+        hidesWhenStopped: true,
+        size: 'small'
+      };
+    },
+    render: function render() {
+      var _props = this.props,
+          onLayout = _props.onLayout,
+          style = _props.style,
+          props = babelHelpers.objectWithoutProperties(_props, ["onLayout", "style"]);
+      var sizeStyle = void 0;
+
+      switch (props.size) {
+        case 'small':
+          sizeStyle = styles.sizeSmall;
+          break;
+
+        case 'large':
+          sizeStyle = styles.sizeLarge;
+          break;
+
+        default:
+          sizeStyle = {
+            height: props.size,
+            width: props.size
+          };
+          break;
+      }
+
+      var nativeProps = babelHelpers.extends({}, props, {
+        style: sizeStyle,
+        styleAttr: 'Normal',
+        indeterminate: true
+      });
+      return React.createElement(
+        View,
+        {
+          onLayout: onLayout,
+          style: [styles.container, style]
+        },
+        React.createElement(RCTActivityIndicator, nativeProps)
+      );
+    }
+  });
+  {
+    RCTActivityIndicator = requireNativeComponent('RCTActivityIndicatorView', ActivityIndicator, {
+      nativeOnly: {
+        activityIndicatorViewStyle: true
+      }
+    });
+  }
+  var styles = StyleSheet.create({
+    container: {
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    sizeSmall: {
+      width: 20,
+      height: 20
+    },
+    sizeLarge: {
+      width: 36,
+      height: 36
+    }
+  });
+  module.exports = ActivityIndicator;
+});

@@ -1,0 +1,6 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var emptyObject = {};
+  module.exports = emptyObject;
+});

@@ -1,0 +1,87 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react = _require(_dependencyMap[0]);
+
+  var _react2 = babelHelpers.interopRequireDefault(_react);
+
+  var _propTypes = _require(_dependencyMap[1]);
+
+  var _propTypes2 = babelHelpers.interopRequireDefault(_propTypes);
+
+  var _reactNative = _require(_dependencyMap[2]);
+
+  var _resolveAssetSource = _require(_dependencyMap[3]);
+
+  var _resolveAssetSource2 = babelHelpers.interopRequireDefault(_resolveAssetSource);
+
+  var _decorateMapComponent = _require(_dependencyMap[4]);
+
+  var _decorateMapComponent2 = babelHelpers.interopRequireDefault(_decorateMapComponent);
+
+  var viewConfig = {
+    uiViewClassName: 'AIR<provider>MapOverlay',
+    validAttributes: {
+      image: true
+    }
+  };
+  var propTypes = babelHelpers.extends({}, _reactNative.View.propTypes, {
+    image: _propTypes2.default.any.isRequired,
+    bounds: _propTypes2.default.arrayOf(_propTypes2.default.array.isRequired).isRequired
+  });
+
+  var MapOverlay = function (_Component) {
+    babelHelpers.inherits(MapOverlay, _Component);
+
+    function MapOverlay() {
+      babelHelpers.classCallCheck(this, MapOverlay);
+      return babelHelpers.possibleConstructorReturn(this, (MapOverlay.__proto__ || Object.getPrototypeOf(MapOverlay)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(MapOverlay, [{
+      key: "render",
+      value: function render() {
+        var image = void 0;
+
+        if (this.props.image) {
+          if (typeof this.props.image.startsWith === 'function' && this.props.image.startsWith('http')) {
+            image = this.props.image;
+          } else {
+            image = (0, _resolveAssetSource2.default)(this.props.image) || {};
+            image = image.uri;
+          }
+        }
+
+        var AIRMapOverlay = this.getAirComponent();
+        return _react2.default.createElement(AIRMapOverlay, babelHelpers.extends({}, this.props, {
+          image: image,
+          style: [styles.overlay, this.props.style]
+        }));
+      }
+    }]);
+    return MapOverlay;
+  }(_react.Component);
+
+  MapOverlay.propTypes = propTypes;
+  MapOverlay.viewConfig = viewConfig;
+
+  var styles = _reactNative.StyleSheet.create({
+    overlay: {
+      position: 'absolute',
+      backgroundColor: 'transparent'
+    }
+  });
+
+  MapOverlay.Animated = _reactNative.Animated.createAnimatedComponent(MapOverlay);
+  exports.default = (0, _decorateMapComponent2.default)(MapOverlay, {
+    componentType: 'Overlay',
+    providers: {
+      google: {
+        ios: _decorateMapComponent.SUPPORTED,
+        android: _decorateMapComponent.USES_DEFAULT_IMPLEMENTATION
+      }
+    }
+  });
+});

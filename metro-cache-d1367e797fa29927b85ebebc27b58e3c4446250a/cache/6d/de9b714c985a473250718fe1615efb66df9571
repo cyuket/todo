@@ -1,0 +1,89 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+  'use strict';
+
+  var _class, _temp, _class2, _temp2;
+
+  var ColorPropType = _require(_dependencyMap[0]);
+
+  var PickerIOS = _require(_dependencyMap[1]);
+
+  var PickerAndroid = _require(_dependencyMap[2]);
+
+  var Platform = _require(_dependencyMap[3]);
+
+  var React = _require(_dependencyMap[4]);
+
+  var PropTypes = _require(_dependencyMap[5]);
+
+  var StyleSheetPropType = _require(_dependencyMap[6]);
+
+  var TextStylePropTypes = _require(_dependencyMap[7]);
+
+  var UnimplementedView = _require(_dependencyMap[8]);
+
+  var ViewPropTypes = _require(_dependencyMap[9]);
+
+  var ViewStylePropTypes = _require(_dependencyMap[10]);
+
+  var itemStylePropType = StyleSheetPropType(TextStylePropTypes);
+  var pickerStyleType = StyleSheetPropType(babelHelpers.extends({}, ViewStylePropTypes, {
+    color: ColorPropType
+  }));
+  var MODE_DIALOG = 'dialog';
+  var MODE_DROPDOWN = 'dropdown';
+  var PickerItem = (_temp = _class = function (_React$Component) {
+    babelHelpers.inherits(PickerItem, _React$Component);
+
+    function PickerItem() {
+      babelHelpers.classCallCheck(this, PickerItem);
+      return babelHelpers.possibleConstructorReturn(this, (PickerItem.__proto__ || Object.getPrototypeOf(PickerItem)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(PickerItem, [{
+      key: "render",
+      value: function render() {
+        throw null;
+      }
+    }]);
+    return PickerItem;
+  }(React.Component), _class.propTypes = {
+    label: PropTypes.string.isRequired,
+    value: PropTypes.any,
+    color: ColorPropType,
+    testID: PropTypes.string
+  }, _temp);
+  var Picker = (_temp2 = _class2 = function (_React$Component2) {
+    babelHelpers.inherits(Picker, _React$Component2);
+
+    function Picker() {
+      babelHelpers.classCallCheck(this, Picker);
+      return babelHelpers.possibleConstructorReturn(this, (Picker.__proto__ || Object.getPrototypeOf(Picker)).apply(this, arguments));
+    }
+
+    babelHelpers.createClass(Picker, [{
+      key: "render",
+      value: function render() {
+        {
+          return React.createElement(
+            PickerAndroid,
+            this.props,
+            this.props.children
+          );
+        }
+      }
+    }]);
+    return Picker;
+  }(React.Component), _class2.MODE_DIALOG = MODE_DIALOG, _class2.MODE_DROPDOWN = MODE_DROPDOWN, _class2.Item = PickerItem, _class2.defaultProps = {
+    mode: MODE_DIALOG
+  }, _class2.propTypes = babelHelpers.extends({}, ViewPropTypes, {
+    style: pickerStyleType,
+    selectedValue: PropTypes.any,
+    onValueChange: PropTypes.func,
+    enabled: PropTypes.bool,
+    mode: PropTypes.oneOf(['dialog', 'dropdown']),
+    itemStyle: itemStylePropType,
+    prompt: PropTypes.string,
+    testID: PropTypes.string
+  }), _temp2);
+  module.exports = Picker;
+});

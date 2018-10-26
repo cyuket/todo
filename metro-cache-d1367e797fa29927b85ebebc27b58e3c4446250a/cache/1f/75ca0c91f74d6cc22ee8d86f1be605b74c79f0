@@ -1,0 +1,19 @@
+__d(function (global, _require2, module, exports, _dependencyMap) {
+  var NativeModulesProxy = _require2(_dependencyMap[0]);
+
+  var EventEmitter = _require2(_dependencyMap[1]);
+
+  var NativeViewManagerAdapter = _require2(_dependencyMap[2]);
+
+  var _require = _require2(_dependencyMap[3]),
+      Platform = _require.Platform;
+
+  module.exports = {
+    Platform: {
+      OS: "android"
+    },
+    NativeModulesProxy: NativeModulesProxy,
+    EventEmitter: EventEmitter,
+    requireNativeViewManager: NativeViewManagerAdapter.requireNativeViewManager
+  };
+});

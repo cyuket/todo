@@ -1,0 +1,52 @@
+__d(function (global, _require, module, exports, _dependencyMap) {
+    Object.defineProperty(exports, "__esModule", {
+        value: true
+    });
+
+    exports.default = function (props, ref) {
+        var styleProperties = [];
+        var extractedProps = {
+            opacity: (0, _extractOpacity2.default)(props.opacity),
+            propList: styleProperties
+        };
+
+        if (props.id) {
+            extractedProps.name = props.id;
+        }
+
+        if (props.clipPath) {
+            babelHelpers.extends(extractedProps, (0, _extractClipPath2.default)(props));
+        }
+
+        babelHelpers.extends(extractedProps, (0, _extractStroke2.default)(props, styleProperties));
+        babelHelpers.extends(extractedProps, (0, _extractFill2.default)(props, styleProperties));
+        extractedProps.matrix = (0, _extractTransform2.default)(props);
+        babelHelpers.extends(extractedProps, (0, _extractTransform.props2transform)(props));
+        babelHelpers.extends(extractedProps, (0, _extractResponder2.default)(props, ref));
+        return extractedProps;
+    };
+
+    var _extractFill = _require(_dependencyMap[0]);
+
+    var _extractFill2 = babelHelpers.interopRequireDefault(_extractFill);
+
+    var _extractStroke = _require(_dependencyMap[1]);
+
+    var _extractStroke2 = babelHelpers.interopRequireDefault(_extractStroke);
+
+    var _extractTransform = _require(_dependencyMap[2]);
+
+    var _extractTransform2 = babelHelpers.interopRequireDefault(_extractTransform);
+
+    var _extractClipPath = _require(_dependencyMap[3]);
+
+    var _extractClipPath2 = babelHelpers.interopRequireDefault(_extractClipPath);
+
+    var _extractResponder = _require(_dependencyMap[4]);
+
+    var _extractResponder2 = babelHelpers.interopRequireDefault(_extractResponder);
+
+    var _extractOpacity = _require(_dependencyMap[5]);
+
+    var _extractOpacity2 = babelHelpers.interopRequireDefault(_extractOpacity);
+});
